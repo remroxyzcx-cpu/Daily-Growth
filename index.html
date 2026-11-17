@@ -1,96 +1,292 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f6f7fb">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="每日成长">
-<title>每日成长</title>
+<meta name="apple-mobile-web-app-title" content="ZCX.">
+<title>ZCX. — 每日成长</title>
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--ink:#202536;--muted:#858b9b;--line:#eceef3;--accent:#6676d9;--accent2:#8b97ed;--green:#269b70;--soft:#eef0ff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif}
-main{max-width:560px;margin:auto;padding:calc(22px + env(safe-area-inset-top)) 18px calc(34px + env(safe-area-inset-bottom))}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--muted);font-weight:700}.brand{font-size:27px;font-weight:800;letter-spacing:-1px;margin-top:5px}.date{font-size:13px;color:var(--muted);margin-top:7px}.avatar{width:45px;height:45px;border-radius:16px;background:#e9ebff;display:grid;place-items:center;font-size:22px}
-.hero{background:linear-gradient(135deg,#6676d9,#8994e8);color:white;border-radius:25px;padding:22px;box-shadow:0 12px 28px #6676d926;margin-bottom:20px}.hero small{opacity:.82;font-size:12px}.hero h2{font-size:21px;margin:9px 0 18px}.progressrow{display:flex;align-items:end;justify-content:space-between}.percent{font-size:36px;font-weight:800;letter-spacing:-1px}.progressbar{height:8px;border-radius:20px;background:#ffffff48;overflow:hidden;margin-top:12px}.progressfill{height:100%;width:0;background:white;border-radius:20px;transition:width .25s}
-.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:25px 2px 12px}.sectionhead h3{font-size:16px;margin:0}.sectionhead span{font-size:12px;color:var(--muted)}
-.tasks{display:grid;gap:10px}.task{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);border-radius:17px;padding:14px 14px;transition:.2s}.task.done{border-color:#d7eee4;background:#fbfffd}.check{width:25px;height:25px;border:1.8px solid #cdd1dc;border-radius:9px;flex:none;display:grid;place-items:center;color:white;font-weight:800}.task.done .check{background:var(--green);border-color:var(--green)}.tasktext{flex:1;min-width:0}.taskname{font-size:14px;font-weight:700}.taskdesc{font-size:11px;color:var(--muted);margin-top:4px}.task.done .taskname{color:#7b8490;text-decoration:line-through}.emoji{font-size:19px;width:28px;text-align:center}
-.note{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:14px;margin-top:11px}.note label{font-size:13px;font-weight:700;display:block;margin-bottom:9px}.note textarea{width:100%;border:0;outline:0;resize:vertical;min-height:65px;font:14px/1.6 inherit;color:var(--ink);background:transparent}.note textarea::placeholder{color:#b0b4c0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px}.stat b{font-size:23px;display:block;margin-top:7px}.stat small{color:var(--muted);font-size:11px}
-.actions{display:flex;gap:9px;margin-top:17px}.btn{border:0;border-radius:13px;padding:12px 14px;font-size:13px;font-weight:700;background:var(--soft);color:#5967c7;flex:1}.btn.secondary{background:#fff;color:#6f7584;border:1px solid var(--line)}
-.history{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}.historyrow{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.historyrow:last-child{border:0}.empty{font-size:12px;color:var(--muted);padding:7px 0}
-footer{text-align:center;color:#a0a5b1;font-size:11px;margin-top:25px;line-height:1.8}
+:root{--bg:#f5f5f7;--surface:#fff;--ink:#17181c;--muted:#858891;--line:#e8e9ed;--blue:#2767e8;--blue-soft:#edf3ff;--green:#27845d;--shadow:0 12px 40px rgba(20,25,40,.055);--radius:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit}button{cursor:pointer}
+.shell{width:min(100% - 36px,920px);margin:0 auto;padding:26px 0 54px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:52px}
+.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:42px;height:42px;border-radius:13px;background:#17181c;color:white;display:grid;place-items:center;font-size:18px;font-weight:750;letter-spacing:-1.4px}.brand-name{font-size:15px;font-weight:750;letter-spacing:1.2px}.brand-sub{font-size:9px;letter-spacing:1.7px;color:var(--muted);margin-top:3px}
+.top-actions{display:flex;align-items:center;gap:9px}.icon-btn{border:1px solid var(--line);background:var(--surface);border-radius:999px;width:39px;height:39px;display:grid;place-items:center;color:#555;transition:.2s}.icon-btn:hover{background:#f0f2f6}.edition{font-size:10px;letter-spacing:1.2px;color:#777;background:#fff;border:1px solid var(--line);padding:9px 12px;border-radius:999px}
+.hero{margin-bottom:30px}.date-line{font-size:11px;letter-spacing:1.6px;color:var(--muted);font-weight:650;margin-bottom:18px;text-transform:uppercase}
+h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:0 0 13px;font-weight:720}.subtitle{color:#777b85;font-size:14px;line-height:1.8;margin:0}.hero-en{font-size:10px;letter-spacing:2.4px;color:#a0a3aa;margin-top:24px;font-weight:650}
+.overview{background:#17191f;color:#fff;border-radius:25px;padding:25px 26px 23px;box-shadow:var(--shadow);margin:30px 0 34px;position:relative;overflow:hidden}.overview:after{content:"";position:absolute;width:210px;height:210px;border-radius:50%;right:-95px;top:-125px;background:rgba(255,255,255,.055)}
+.overview-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.eyebrow{font-size:10px;letter-spacing:1.8px;color:#a4a7b0;font-weight:650}.percent{font-size:31px;letter-spacing:-1.5px;font-weight:650;font-variant-numeric:tabular-nums}.progress-track{height:5px;border-radius:9px;background:#3b3e47;margin:18px 0 12px;overflow:hidden}.progress-fill{height:100%;width:0;background:#fff;border-radius:9px;transition:width .55s cubic-bezier(.2,.8,.2,1)}.overview-foot{display:flex;justify-content:space-between;color:#a4a7b0;font-size:11px}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin:0 2px 15px}.section-title{font-size:16px;font-weight:700;letter-spacing:-.3px}.section-meta{font-size:10px;letter-spacing:1px;color:var(--muted)}
+.tasks{display:grid;grid-template-columns:1fr 1fr;gap:11px}.task{border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:17px 17px 16px;min-height:112px;text-align:left;display:flex;align-items:flex-start;gap:13px;box-shadow:0 3px 12px rgba(20,25,40,.018);transition:transform .2s,border-color .2s,background .2s;position:relative;color:inherit}.task:hover{transform:translateY(-2px);border-color:#cfd7e7}.task:active{transform:scale(.985)}.task.done{border-color:#c9d9ff;background:#f8faff}.task-num{font-size:10px;color:#a0a3aa;letter-spacing:.8px;padding-top:3px;min-width:20px}.task-copy{flex:1}.task-name{font-size:14px;font-weight:650;margin:1px 0 7px}.task-desc{font-size:11px;color:#9699a1;line-height:1.55}.check{width:21px;height:21px;border:1.5px solid #d5d7dc;border-radius:50%;flex:none;margin-top:1px;display:grid;place-items:center;transition:.22s}.task.done .check{background:var(--blue);border-color:var(--blue);color:white;animation:pop .28s ease}.check svg{width:12px;height:12px;opacity:0;transform:scale(.6);transition:.18s}.task.done .check svg{opacity:1;transform:scale(1)}@keyframes pop{50%{transform:scale(1.18)}}
+.done-banner{display:none;margin-top:14px;padding:17px 18px;background:#edf7f1;border:1px solid #d6ebdf;border-radius:17px;color:#276c4c;animation:rise .35s ease}.done-banner.show{display:block}.done-banner strong{font-size:14px}.done-banner p{font-size:11px;margin:5px 0 0;color:#57846d}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.quote{margin:33px 0 28px;padding:18px 20px;border-left:2px solid #cbd7ef;color:#737782;font-size:12px;line-height:1.8;background:rgba(255,255,255,.48);border-radius:0 14px 14px 0}
+.tabs{display:flex;gap:7px;border-bottom:1px solid var(--line);margin:34px 0 19px;padding-bottom:10px}.tab{border:0;background:transparent;color:#898c95;font-size:12px;padding:9px 13px;border-radius:999px}.tab.active{background:#17191f;color:white}
+.panel{display:none}.panel.active{display:block;animation:rise .25s ease}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px 15px}.stat-num{font-size:25px;font-weight:680;letter-spacing:-1px;font-variant-numeric:tabular-nums}.stat-label{font-size:10px;color:#898d96;margin-top:5px}
+.history-card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:18px;margin-bottom:12px}.history-title{font-size:12px;font-weight:700;margin-bottom:14px}.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.day{text-align:center}.day-label{font-size:9px;color:#999da6;margin-bottom:8px}.day-dot{height:32px;border-radius:10px;background:#f0f1f4;display:grid;place-items:center;font-size:10px;color:#a1a4ab}.day-dot.some{background:#e7efff;color:#386bc7}.day-dot.full{background:#2767e8;color:white}.history-list{display:flex;flex-direction:column;gap:8px}.history-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0f0f2;font-size:12px}.history-row:last-child{border-bottom:0}.history-date{font-weight:600}.history-detail{font-size:10px;color:#92959d;margin-top:4px}.history-pct{font-weight:650;color:#5d6574;font-variant-numeric:tabular-nums}
+.note-box{background:#fff;border:1px solid var(--line);border-radius:19px;padding:17px;margin-top:12px}.note-label{font-size:11px;font-weight:700;margin-bottom:10px}.note-box textarea{width:100%;min-height:90px;resize:vertical;border:0;outline:0;color:#34363c;font-size:12px;line-height:1.7;background:transparent}.note-box textarea::placeholder{color:#b2b5bc}.note-status{font-size:10px;color:#9a9da5;text-align:right}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.small-btn{border:1px solid var(--line);background:#fff;color:#666b75;border-radius:999px;padding:9px 13px;font-size:10px}.small-btn:hover{border-color:#b9c7e2;color:#315fae}
+.footer{border-top:1px solid var(--line);margin-top:43px;padding-top:25px;text-align:center}.footer-logo{font-size:26px;font-weight:780;letter-spacing:-1.5px}.footer-name{font-size:10px;letter-spacing:2px;color:#747984;margin-top:5px}.footer-line{font-size:9px;color:#a4a7ae;letter-spacing:1.2px;margin-top:12px}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#17191f;color:#fff;border-radius:999px;padding:11px 17px;font-size:11px;box-shadow:0 8px 30px #0002;transition:.25s;z-index:5;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4}.confetti i{position:absolute;top:-12px;width:6px;height:10px;background:#4779e8;border-radius:2px;animation:fall 1.7s ease-in forwards}@keyframes fall{to{transform:translateY(105vh) rotate(650deg);opacity:0}}
+.modal-backdrop{position:fixed;inset:0;background:#10131a55;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.modal-backdrop.show{display:flex}.modal{width:min(100%,390px);background:#fff;border-radius:22px;padding:23px;box-shadow:0 20px 70px #0003}.modal h2{font-size:17px;margin:0 0 9px}.modal p{font-size:12px;line-height:1.7;color:#777b84}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+@media(max-width:620px){.shell{width:min(100% - 30px,560px);padding-top:19px}.topbar{margin-bottom:42px}.edition{display:none}.tasks{grid-template-columns:1fr}.task{min-height:91px;padding:15px 16px}.overview{padding:22px 21px}.stats{gap:7px}.stat{padding:14px 11px}.stat-num{font-size:22px}.section-head{margin-bottom:12px}h1{letter-spacing:-1.5px}.hero{margin-bottom:24px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
-<main>
-  <header class="top">
-    <div><div class="eyebrow">DAILY GROWTH · 每日一点进步</div><div class="brand">每日成长</div><div class="date" id="today"></div></div>
-    <div class="avatar">🌱</div>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">Z.</div>
+      <div><div class="brand-name">ZCX.</div><div class="brand-sub">PERSONAL EDITION</div></div>
+    </div>
+    <div class="top-actions">
+      <span class="edition">MY DAILY GROWTH</span>
+      <button class="icon-btn" id="backupBtn" aria-label="数据备份" title="数据备份">↥</button>
+    </div>
   </header>
-  <section class="hero">
-    <small>今天也向前走了一点</small>
-    <h2 id="greeting">慢慢来，持续比完美重要。</h2>
-    <div class="progressrow"><div><small>今日完成进度</small><div class="percent" id="percent">0%</div></div><small id="count">0 / 6 项完成</small></div>
-    <div class="progressbar"><div class="progressfill" id="bar"></div></div>
-  </section>
-  <div class="sectionhead"><h3>今天的计划</h3><span>完成一项，点亮一项</span></div>
-  <section class="tasks" id="tasks"></section>
-  <section class="note">
-    <label for="reflection">✍️ 今天的一点记录</label>
-    <textarea id="reflection" placeholder="今天有什么收获？遇到了什么困难？"></textarea>
-  </section>
-  <div class="sectionhead"><h3>成长统计</h3><span>记录自己的节奏</span></div>
-  <section class="grid">
-    <div class="stat"><small>近 7 天完成项目</small><b id="weekDone">0</b></div>
-    <div class="stat"><small>近 7 天打卡天数</small><b id="weekDays">0</b></div>
-  </section>
-  <div class="sectionhead"><h3>最近记录</h3><span>自动保存</span></div>
-  <section class="history" id="history"><div class="empty">完成今天的任务后，这里会留下记录。</div></section>
-  <div class="actions">
-    <button class="btn" id="export">导出打卡记录</button>
-    <button class="btn secondary" id="reset">清空今天勾选</button>
-  </div>
-  <footer>不必每天满分，重要的是一直在自己的节奏里。<br>数据保存在当前浏览器中，请定期导出备份。</footer>
-</main>
+
+  <main>
+    <section class="hero">
+      <div class="date-line" id="todayDate">—</div>
+      <h1>把时间，花在自己身上。</h1>
+      <p class="subtitle">不必急着成为更好的人，先认真过好今天。</p>
+      <div class="hero-en">MAKE TODAY COUNT</div>
+    </section>
+
+    <section class="overview" aria-label="今日进度">
+      <div class="overview-head"><span class="eyebrow">TODAY'S PROGRESS</span><span class="percent" id="percent">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="overview-foot"><span id="progressText">从今天开始，积累每一点进步。</span><span id="countText">0 / 6</span></div>
+    </section>
+
+    <div class="section-head"><div class="section-title">今日计划</div><div class="section-meta">DAILY ROUTINE</div></div>
+    <section class="tasks" id="tasks">
+      <button class="task" data-id="vocab"><span class="task-num">01</span><span class="task-copy"><div class="task-name">背单词</div><div class="task-desc">积累词汇，让每一次学习都有所沉淀。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      <button class="task" data-id="gym"><span class="task-num">02</span><span class="task-copy"><div class="task-name">健身</div><div class="task-desc">保持规律运动，在坚持中积累能量。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      <button class="task" data-id="cet"><span class="task-num">03</span><span class="task-copy"><div class="task-name">英语六级专项</div><div class="task-desc">练习与复盘并行，把错误变成进步。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      <button class="task" data-id="phone"><span class="task-num">04</span><span class="task-copy"><div class="task-name">控制手机使用</div><div class="task-desc">减少无意识的信息消耗，把时间留给自己。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      <button class="task" data-id="read"><span class="task-num">05</span><span class="task-copy"><div class="task-name">阅读</div><div class="task-desc">拓宽认知边界，给思考留一点空间。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      <button class="task" data-id="ai"><span class="task-num">06</span><span class="task-copy"><div class="task-name">AI 实践</div><div class="task-desc">主动探索新技术，把想法变成实践。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    </section>
+    <div class="done-banner" id="doneBanner"><strong>今天的六件事，全部完成。</strong><p>很好。把这份认真留给明天的自己。</p></div>
+    <div class="quote">成长不是每天都要有惊人的变化，而是在普通的一天里，也愿意为自己做一点事。</div>
+
+    <nav class="tabs" aria-label="成长记录导航">
+      <button class="tab active" data-tab="history">成长记录</button>
+      <button class="tab" data-tab="stats">累计统计</button>
+    </nav>
+    <section class="panel active" id="historyPanel">
+      <div class="history-card">
+        <div class="history-title">最近 7 天 · 完成趋势</div>
+        <div class="week-grid" id="weekGrid"></div>
+      </div>
+      <div class="history-card">
+        <div class="history-title">每日记录</div>
+        <div class="history-list" id="historyList"></div>
+      </div>
+      <div class="note-box">
+        <div class="note-label">今日随手记</div>
+        <textarea id="dailyNote" maxlength="600" placeholder="记录今天的想法、收获，或者一件值得记住的小事……"></textarea>
+        <div class="note-status" id="noteStatus">自动保存 · 0 / 600</div>
+      </div>
+    </section>
+    <section class="panel" id="statsPanel">
+      <div class="stats">
+        <div class="stat"><div class="stat-num" id="daysStat">0</div><div class="stat-label">有记录的天数</div></div>
+        <div class="stat"><div class="stat-num" id="streakStat">0</div><div class="stat-label">连续全勤天数</div></div>
+        <div class="stat"><div class="stat-num" id="totalStat">0</div><div class="stat-label">累计完成事项</div></div>
+      </div>
+      <div class="history-card">
+        <div class="history-title">给自己的小提醒</div>
+        <p style="font-size:12px;line-height:1.8;color:#777b84;margin:0">统计不是为了给每一天打分，而是帮你看见自己走过的路。偶尔漏掉一项也没关系，明天继续就好。</p>
+      </div>
+    </section>
+    <div class="tools">
+      <button class="small-btn" id="exportBtn">导出备份</button>
+      <button class="small-btn" id="importBtn">导入备份</button>
+      <button class="small-btn" id="resetBtn">重置今日打卡</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-logo">ZCX.</div>
+    <div class="footer-name">ZHAO CHENXU</div>
+    <div class="footer-line">PERSONAL GROWTH SYSTEM · 2026</div>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+<div class="confetti" id="confetti"></div>
+<div class="modal-backdrop" id="modal">
+  <div class="modal"><h2 id="modalTitle">确认操作</h2><p id="modalText">确定要继续吗？</p><div class="modal-actions"><button class="small-btn" id="cancelModal">取消</button><button class="small-btn" id="confirmModal" style="background:#17191f;color:#fff;border-color:#17191f">确认</button></div></div>
+</div>
 <script>
-const tasks=[
- {id:"gym",emoji:"🏋️",name:"健身 / 活动",desc:"按计划训练，也可以安排恢复日"},
- {id:"vocab",emoji:"🔤",name:"英语：背单词",desc:"主动回忆，少量多次"},
- {id:"cet",emoji:"🎧",name:"英语六级专项",desc:"听力、阅读、写作或翻译，记得复盘"},
- {id:"read",emoji:"📖",name:"阅读",desc:"读几页也算，保持习惯"},
- {id:"ai",emoji:"💡",name:"AI 实践",desc:"动手做一个小尝试，不只看教程"},
- {id:"phone",emoji:"📵",name:"短视频管理",desc:"有意识地使用手机，给自己留出空闲"}
-];
-const $=id=>document.getElementById(id);
-const todayKey=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
-const storeKey="dailyGrowthRecords_v1";
-let records={};
-try{records=JSON.parse(localStorage.getItem(storeKey)||"{}")||{}}catch(e){records={}}
-const key=todayKey();
-if(!records[key])records[key]={done:[],note:""};
-function save(){localStorage.setItem(storeKey,JSON.stringify(records))}
-function render(){
- const r=records[key];$("today").textContent=new Date().toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
- $("tasks").innerHTML=tasks.map(t=>`<div class="task ${r.done.includes(t.id)?"done":""}" data-id="${t.id}"><div class="check">${r.done.includes(t.id)?"✓":""}</div><div class="emoji">${t.emoji}</div><div class="tasktext"><div class="taskname">${t.name}</div><div class="taskdesc">${t.desc}</div></div></div>`).join("");
- const n=r.done.length,p=Math.round(n/tasks.length*100);$("percent").textContent=p+"%";$("count").textContent=`${n} / ${tasks.length} 项完成`;$("bar").style.width=p+"%";
- $("greeting").textContent=p===100?"今天的计划全部完成，做得很好！":p>=50?"已经完成不少了，继续保持自己的节奏。":"慢慢开始就好，不需要一下子完成全部。";
- $("reflection").value=r.note||"";
- renderStats();
-}
-function renderStats(){
- const now=new Date();let total=0,days=0,rows=[];
- for(let i=0;i<7;i++){let d=new Date(now);d.setDate(now.getDate()-i);let k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;let r=records[k];if(r&&r.done.length){total+=r.done.length;days++}}
- $("weekDone").textContent=total;$("weekDays").textContent=days+" 天";
- Object.keys(records).sort().reverse().slice(0,7).forEach(k=>{let r=records[k];rows.push(`<div class="historyrow"><span>${k}</span><b>${r.done.length}/${tasks.length} 项 · ${Math.round(r.done.length/tasks.length*100)}%</b></div>`)});
- $("history").innerHTML=rows.length?rows.join(""):'<div class="empty">完成今天的任务后，这里会留下记录。</div>';
-}
-$("tasks").addEventListener("click",e=>{const el=e.target.closest(".task");if(!el)return;const id=el.dataset.id;const a=records[key].done;records[key].done=a.includes(id)?a.filter(x=>x!==id):[...a,id];save();render()});
-$("reflection").addEventListener("input",e=>{records[key].note=e.target.value;save()});
-$("reset").addEventListener("click",()=>{if(confirm("确定清空今天的勾选吗？")){records[key].done=[];save();render()}});
-$("export").addEventListener("click",()=>{const blob=new Blob([JSON.stringify(records,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="每日成长打卡记录.json";a.click();URL.revokeObjectURL(url)});
-render();
+(() => {
+  'use strict';
+  // 兼容旧版正式网页：不要更改此 key、任务 ID 或记录字段。
+  const STORAGE_KEY = 'dailyGrowthRecords_v1';
+  const TASK_IDS = ['gym','vocab','cet','read','ai','phone'];
+  const TASK_ORDER = ['vocab','gym','cet','phone','read','ai'];
+  const $ = id => document.getElementById(id);
+  const pad = n => String(n).padStart(2,'0');
+  const localDateKey = (date = new Date()) => `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+  const dateFromKey = key => { const [y,m,d]=key.split('-').map(Number); return new Date(y,m-1,d); };
+  const today = localDateKey();
+  let records = {};
+  let modalAction = null;
+  let toastTimer = null;
+  let previousAllDone = false;
+
+  function loadRecords(){
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : {};
+      if(parsed && typeof parsed === 'object' && !Array.isArray(parsed)) records = parsed;
+    } catch(e){ records = {}; showToast('读取本地记录失败，请先尝试导入备份'); }
+    // 清理不合法字段，但保留旧数据中的 note 与已知任务 ID。
+    Object.keys(records).forEach(key => {
+      const r = records[key];
+      if(!r || typeof r !== 'object') { delete records[key]; return; }
+      records[key] = {done:Array.isArray(r.done) ? r.done.filter(id=>TASK_IDS.includes(id)) : [], note:typeof r.note==='string'?r.note:''};
+    });
+  }
+  function saveRecords(){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(records)); }
+    catch(e){ showToast('浏览器存储空间不足，建议导出备份'); }
+  }
+  function ensureToday(){ if(!records[today]) records[today] = {done:[],note:''}; }
+  function todayDone(){ ensureToday(); return records[today].done; }
+  function countFor(key){ const r=records[key]; return r && Array.isArray(r.done) ? TASK_IDS.filter(id=>r.done.includes(id)).length : 0; }
+  function isFull(key){ return countFor(key)===6; }
+
+  function renderDate(){
+    const d = new Date();
+    const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+    $('todayDate').textContent = `${d.getMonth()+1}月${d.getDate()}日 · ${weekdays[d.getDay()]}`;
+  }
+  function renderToday(){
+    const done = todayDone(), count = TASK_IDS.filter(id=>done.includes(id)).length, pct = Math.round(count/6*100);
+    $('percent').textContent = pct+'%';
+    $('progressFill').style.width = pct+'%';
+    $('countText').textContent = `${count} / 6`;
+    $('progressText').textContent = count===0 ? '从今天开始，积累每一点进步。' : count===6 ? '今天的计划已经圆满完成。' : '每完成一件事，都是向前一步。';
+    document.querySelectorAll('.task').forEach(btn=>btn.classList.toggle('done',done.includes(btn.dataset.id)));
+    $('doneBanner').classList.toggle('show',count===6);
+    $('dailyNote').value = records[today].note || '';
+    updateNoteStatus();
+    renderHistory();
+    renderStats();
+  }
+  function renderHistory(){
+    const grid=$('weekGrid'); grid.innerHTML='';
+    const labels=['日','一','二','三','四','五','六'];
+    for(let i=6;i>=0;i--){
+      const d=new Date(); d.setDate(d.getDate()-i);
+      const key=localDateKey(d), count=countFor(key);
+      const cell=document.createElement('div'); cell.className='day';
+      const label=document.createElement('div'); label.className='day-label'; label.textContent=labels[d.getDay()];
+      const dot=document.createElement('div'); dot.className='day-dot'+(count===6?' full':count>0?' some':''); dot.textContent=count?count+'/6':'—';
+      cell.append(label,dot); grid.append(cell);
+    }
+    const list=$('historyList'); list.innerHTML='';
+    const keys=Object.keys(records).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).sort((a,b)=>b.localeCompare(a)).slice(0,14);
+    if(!keys.length){ const empty=document.createElement('div'); empty.style.cssText='font-size:11px;color:#999;padding:8px 0'; empty.textContent='还没有成长记录，完成今天的第一项任务吧。'; list.append(empty); return; }
+    keys.forEach(key=>{
+      const row=document.createElement('div'); row.className='history-row';
+      const left=document.createElement('div'), date=document.createElement('div'), detail=document.createElement('div');
+      date.className='history-date'; date.textContent=key===today?'今天':key;
+      detail.className='history-detail'; detail.textContent=(records[key].note||'暂无随手记').slice(0,36);
+      left.append(date,detail);
+      const pct=Math.round(countFor(key)/6*100), right=document.createElement('div'); right.className='history-pct'; right.textContent=`${countFor(key)}/6 · ${pct}%`;
+      row.append(left,right); list.append(row);
+    });
+  }
+  function renderStats(){
+    const keys=Object.keys(records).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k));
+    $('daysStat').textContent=keys.length;
+    $('totalStat').textContent=keys.reduce((sum,k)=>sum+countFor(k),0);
+    let streak=0, d=new Date();
+    // 连续全勤从今天开始计算；若今天未全勤，则从昨天开始。
+    if(!isFull(localDateKey(d))) d.setDate(d.getDate()-1);
+    while(isFull(localDateKey(d)) && streak<5000){streak++;d.setDate(d.getDate()-1);}
+    $('streakStat').textContent=streak;
+  }
+  function showToast(message){
+    const el=$('toast'); el.textContent=message; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2100);
+  }
+  function celebrate(){
+    $('confetti').innerHTML='';
+    for(let i=0;i<42;i++){
+      const bit=document.createElement('i');
+      bit.style.left=(Math.random()*100)+'%';
+      bit.style.animationDelay=(Math.random()*.55)+'s';
+      bit.style.transform=`rotate(${Math.random()*180}deg)`;
+      bit.style.background=['#4779e8','#79a2f5','#a9c3ff','#d4a84e','#71b99b'][i%5];
+      $('confetti').append(bit);
+    }
+    setTimeout(()=>$('confetti').innerHTML='',2400);
+    try{ if(navigator.vibrate) navigator.vibrate([35,45,35,60,90]); }catch(e){}
+  }
+  function toggleTask(id){
+    ensureToday();
+    const done=todayDone(), wasFull=done.length===6;
+    if(done.includes(id)) records[today].done=done.filter(x=>x!==id);
+    else records[today].done=[...done,id];
+    saveRecords(); renderToday();
+    const nowFull=todayDone().length===6;
+    try{if(navigator.vibrate) navigator.vibrate(nowFull&&!wasFull?[35,45,35,60,90]:18);}catch(e){}
+    if(nowFull&&!wasFull){celebrate();showToast('今天的六项计划全部完成！');}
+    else showToast(nowFull?'已取消完成':'已更新今日进度');
+  }
+  function updateNoteStatus(){const n=$('dailyNote').value.length;$('noteStatus').textContent=`自动保存 · ${n} / 600`;}
+  function saveNote(){ensureToday();records[today].note=$('dailyNote').value;saveRecords();updateNoteStatus();}
+  function showModal(title,text,action){$('modalTitle').textContent=title;$('modalText').textContent=text;modalAction=action;$('modal').classList.add('show');}
+  function closeModal(){$('modal').classList.remove('show');modalAction=null;}
+  function exportData(){
+    const payload={app:'ZCX Daily Growth',format:1,exportedAt:new Date().toISOString(),records};
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`ZCX-growth-backup-${today}.json`;a.click();URL.revokeObjectURL(url);showToast('备份文件已导出');
+  }
+  function importData(file){
+    const reader=new FileReader();
+    reader.onload=()=>{
+      try{
+        const parsed=JSON.parse(reader.result), incoming=parsed.records||parsed;
+        if(!incoming||typeof incoming!=='object'||Array.isArray(incoming))throw new Error('bad');
+        const clean={};
+        Object.entries(incoming).forEach(([key,r])=>{
+          if(!/^\d{4}-\d{2}-\d{2}$/.test(key)||!r||typeof r!=='object')return;
+          clean[key]={done:Array.isArray(r.done)?r.done.filter(id=>TASK_IDS.includes(id)):[],note:typeof r.note==='string'?r.note:''};
+        });
+        records={...records,...clean};saveRecords();renderToday();showToast('备份导入成功');
+      }catch(e){showToast('文件格式不正确，未能导入');}
+    };
+    reader.readAsText(file);
+  }
+  document.querySelectorAll('.task').forEach(btn=>btn.addEventListener('click',()=>toggleTask(btn.dataset.id)));
+  document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===btn));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===btn.dataset.tab+'Panel'));
+  }));
+  $('dailyNote').addEventListener('input',()=>{saveNote();});
+  $('exportBtn').addEventListener('click',exportData);
+  $('backupBtn').addEventListener('click',exportData);
+  $('importBtn').addEventListener('click',()=>$('importFile').click());
+  $('importFile').addEventListener('change',e=>{if(e.target.files[0])importData(e.target.files[0]);e.target.value='';});
+  $('resetBtn').addEventListener('click',()=>showModal('重置今日打卡？','只会清空今天的六项完成状态，不会删除过去的记录和随手记。',()=>{
+    ensureToday();records[today].done=[];saveRecords();renderToday();showToast('今日打卡已重置');
+  }));
+  $('cancelModal').addEventListener('click',closeModal);
+  $('confirmModal').addEventListener('click',()=>{const fn=modalAction;closeModal();if(fn)fn();});
+  $('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal();});
+  loadRecords();ensureToday();renderDate();renderToday();
+})();
 </script>
 </body>
 </html>
