@@ -22,6 +22,7 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
 .overview-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.eyebrow{font-size:10px;letter-spacing:1.8px;color:#a4a7b0;font-weight:650}.percent{font-size:31px;letter-spacing:-1.5px;font-weight:650;font-variant-numeric:tabular-nums}.progress-track{height:5px;border-radius:9px;background:#3b3e47;margin:18px 0 12px;overflow:hidden}.progress-fill{height:100%;width:0;background:#fff;border-radius:9px;transition:width .55s cubic-bezier(.2,.8,.2,1)}.overview-foot{display:flex;justify-content:space-between;color:#a4a7b0;font-size:11px}
 .section-head{display:flex;align-items:end;justify-content:space-between;margin:0 2px 15px}.section-title{font-size:16px;font-weight:700;letter-spacing:-.3px}.section-meta{font-size:10px;letter-spacing:1px;color:var(--muted)}
 .tasks{display:grid;grid-template-columns:1fr 1fr;gap:11px}.task{border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:17px 17px 16px;min-height:112px;text-align:left;display:flex;align-items:flex-start;gap:13px;box-shadow:0 3px 12px rgba(20,25,40,.018);transition:transform .2s,border-color .2s,background .2s;position:relative;color:inherit}.task:hover{transform:translateY(-2px);border-color:#cfd7e7}.task:active{transform:scale(.985)}.task.done{border-color:#c9d9ff;background:#f8faff}.task-num{font-size:10px;color:#a0a3aa;letter-spacing:.8px;padding-top:3px;min-width:20px}.task-copy{flex:1}.task-name{font-size:14px;font-weight:650;margin:1px 0 7px}.task-desc{font-size:11px;color:#9699a1;line-height:1.55}.check{width:21px;height:21px;border:1.5px solid #d5d7dc;border-radius:50%;flex:none;margin-top:1px;display:grid;place-items:center;transition:.22s}.task.done .check{background:var(--blue);border-color:var(--blue);color:white;animation:pop .28s ease}.check svg{width:12px;height:12px;opacity:0;transform:scale(.6);transition:.18s}.task.done .check svg{opacity:1;transform:scale(1)}@keyframes pop{50%{transform:scale(1.18)}}
+.edit-row{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px 12px;margin-bottom:9px}.edit-num{font-size:10px;color:#a0a3aa;min-width:20px}.edit-row input{min-width:0;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:12px;outline:0;background:#fafbfc;color:#34363c}.edit-row input:focus{border-color:#cfd7e7;background:#fff}.edit-row .e-name{flex:1}.edit-row .e-desc{flex:1.3}.edit-del{border:0;background:#fff1f0;color:#c0392b;border-radius:999px;width:30px;height:30px;flex:none;font-size:15px;line-height:1}.edit-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}.edit-actions .small-btn{flex:1;min-width:88px;text-align:center;padding:11px 8px}.primary-btn{background:#17191f;color:#fff;border-color:#17191f}.primary-btn:hover{color:#fff;border-color:#17191f}.section-edit{margin-left:9px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 10px;font-size:10px;color:#666;letter-spacing:0}.section-edit:hover{border-color:#b9c7e2;color:#315fae}.task-empty{grid-column:1/-1;padding:30px 18px;text-align:center;color:#999;font-size:12px;border:1px dashed var(--line);border-radius:18px;background:#fff}
 .done-banner{display:none;margin-top:14px;padding:17px 18px;background:#edf7f1;border:1px solid #d6ebdf;border-radius:17px;color:#276c4c;animation:rise .35s ease}.done-banner.show{display:block}.done-banner strong{font-size:14px}.done-banner p{font-size:11px;margin:5px 0 0;color:#57846d}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .quote{margin:33px 0 28px;padding:18px 20px;border-left:2px solid #cbd7ef;color:#737782;font-size:12px;line-height:1.8;background:rgba(255,255,255,.48);border-radius:0 14px 14px 0}
 .tabs{display:flex;gap:7px;border-bottom:1px solid var(--line);margin:34px 0 19px;padding-bottom:10px}.tab{border:0;background:transparent;color:#898c95;font-size:12px;padding:9px 13px;border-radius:999px}.tab.active{background:#17191f;color:white}
@@ -33,7 +34,7 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
 .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#17191f;color:#fff;border-radius:999px;padding:11px 17px;font-size:11px;box-shadow:0 8px 30px #0002;transition:.25s;z-index:5;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
 .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4}.confetti i{position:absolute;top:-12px;width:6px;height:10px;background:#4779e8;border-radius:2px;animation:fall 1.7s ease-in forwards}@keyframes fall{to{transform:translateY(105vh) rotate(650deg);opacity:0}}
 .modal-backdrop{position:fixed;inset:0;background:#10131a55;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.modal-backdrop.show{display:flex}.modal{width:min(100%,390px);background:#fff;border-radius:22px;padding:23px;box-shadow:0 20px 70px #0003}.modal h2{font-size:17px;margin:0 0 9px}.modal p{font-size:12px;line-height:1.7;color:#777b84}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
-@media(max-width:620px){.shell{width:min(100% - 30px,560px);padding-top:19px}.topbar{margin-bottom:42px}.edition{display:none}.tasks{grid-template-columns:1fr}.task{min-height:91px;padding:15px 16px}.overview{padding:22px 21px}.stats{gap:7px}.stat{padding:14px 11px}.stat-num{font-size:22px}.section-head{margin-bottom:12px}h1{letter-spacing:-1.5px}.hero{margin-bottom:24px}}
+@media(max-width:620px){.shell{width:min(100% - 30px,560px);padding-top:19px}.topbar{margin-bottom:42px}.edition{display:none}.tasks{grid-template-columns:1fr}.task{min-height:91px;padding:15px 16px}.overview{padding:22px 21px}.stats{gap:7px}.stat{padding:14px 11px}.stat-num{font-size:22px}.section-head{margin-bottom:12px}h1{letter-spacing:-1.5px}.hero{margin-bottom:24px}.edit-row{flex-wrap:wrap}.edit-row .e-name,.edit-row .e-desc{flex:1 1 100%}.edit-actions .small-btn{min-width:80px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
@@ -64,16 +65,9 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
       <div class="overview-foot"><span id="progressText">从今天开始，积累每一点进步。</span><span id="countText">0 / 6</span></div>
     </section>
 
-    <div class="section-head"><div class="section-title">今日计划</div><div class="section-meta">DAILY ROUTINE</div></div>
-    <section class="tasks" id="tasks">
-      <button class="task" data-id="vocab"><span class="task-num">01</span><span class="task-copy"><div class="task-name">背单词</div><div class="task-desc">积累词汇，让每一次学习都有所沉淀。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-      <button class="task" data-id="gym"><span class="task-num">02</span><span class="task-copy"><div class="task-name">健身</div><div class="task-desc">保持规律运动，在坚持中积累能量。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-      <button class="task" data-id="cet"><span class="task-num">03</span><span class="task-copy"><div class="task-name">英语六级专项</div><div class="task-desc">练习与复盘并行，把错误变成进步。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-      <button class="task" data-id="phone"><span class="task-num">04</span><span class="task-copy"><div class="task-name">控制手机使用</div><div class="task-desc">减少无意识的信息消耗，把时间留给自己。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-      <button class="task" data-id="read"><span class="task-num">05</span><span class="task-copy"><div class="task-name">阅读</div><div class="task-desc">拓宽认知边界，给思考留一点空间。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-      <button class="task" data-id="ai"><span class="task-num">06</span><span class="task-copy"><div class="task-name">AI 实践</div><div class="task-desc">主动探索新技术，把想法变成实践。</div></span><span class="check"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-    </section>
-    <div class="done-banner" id="doneBanner"><strong>今天的六件事，全部完成。</strong><p>很好。把这份认真留给明天的自己。</p></div>
+    <div class="section-head"><div class="section-title">今日计划</div><div class="section-meta"><span>DAILY ROUTINE</span><button class="section-edit" id="editTasksBtn">编辑任务</button></div></div>
+    <section class="tasks" id="tasks"></section>
+    <div class="done-banner" id="doneBanner"><strong>今天的任务，全部完成。</strong><p>很好。把这份认真留给明天的自己。</p></div>
     <div class="quote">成长不是每天都要有惊人的变化，而是在普通的一天里，也愿意为自己做一点事。</div>
 
     <nav class="tabs" aria-label="成长记录导航">
@@ -130,17 +124,48 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
   'use strict';
   // 兼容旧版正式网页：不要更改此 key、任务 ID 或记录字段。
   const STORAGE_KEY = 'dailyGrowthRecords_v1';
-  const TASK_IDS = ['gym','vocab','cet','read','ai','phone'];
-  const TASK_ORDER = ['vocab','gym','cet','phone','read','ai'];
+  const TASKS_KEY = 'dailyGrowthTasks_v1';
+  // 默认任务：保留原始 ID 和顺序，保证已有打卡记录完全兼容。
+  const DEFAULT_TASKS = [
+    {id:'vocab', name:'背单词', desc:'积累词汇，让每一次学习都有所沉淀。'},
+    {id:'gym', name:'健身', desc:'保持规律运动，在坚持中积累能量。'},
+    {id:'cet', name:'英语六级专项', desc:'练习与复盘并行，把错误变成进步。'},
+    {id:'phone', name:'控制手机使用', desc:'减少无意识的信息消耗，把时间留给自己。'},
+    {id:'read', name:'阅读', desc:'拓宽认知边界，给思考留一点空间。'},
+    {id:'ai', name:'AI 实践', desc:'主动探索新技术，把想法变成实践。'}
+  ];
   const $ = id => document.getElementById(id);
   const pad = n => String(n).padStart(2,'0');
   const localDateKey = (date = new Date()) => `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
   const dateFromKey = key => { const [y,m,d]=key.split('-').map(Number); return new Date(y,m-1,d); };
-  const today = localDateKey();
+  let today = localDateKey();
+  function syncToday(){
+    const k = localDateKey();
+    if(k === today) return false;
+    today = k;
+    return true;
+  }
   let records = {};
+  let tasks = [];
+  let editing = false;
   let modalAction = null;
   let toastTimer = null;
-  let previousAllDone = false;
+
+  function loadTasks(){
+    try {
+      const raw = localStorage.getItem(TASKS_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      if(Array.isArray(parsed) && parsed.length){
+        tasks = parsed.filter(t=>t && typeof t.id==='string' && typeof t.name==='string').map(t=>({id:t.id,name:t.name,desc:typeof t.desc==='string'?t.desc:''}));
+      } else tasks = DEFAULT_TASKS.map(t=>({...t}));
+    } catch(e){ tasks = DEFAULT_TASKS.map(t=>({...t})); }
+  }
+  function saveTasks(){
+    try { localStorage.setItem(TASKS_KEY, JSON.stringify(tasks)); }
+    catch(e){ showToast('存储空间不足，任务未能保存'); }
+  }
+  function taskIds(){ return tasks.map(t=>t.id); }
+  function newTaskId(){ return 'custom_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6); }
 
   function loadRecords(){
     try {
@@ -148,11 +173,13 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
       const parsed = raw ? JSON.parse(raw) : {};
       if(parsed && typeof parsed === 'object' && !Array.isArray(parsed)) records = parsed;
     } catch(e){ records = {}; showToast('读取本地记录失败，请先尝试导入备份'); }
-    // 清理不合法字段，但保留旧数据中的 note 与已知任务 ID。
+    // 清理不合法字段：保留已知任务 ID 与用户自定义但仍在任务表中的 ID。
     Object.keys(records).forEach(key => {
       const r = records[key];
       if(!r || typeof r !== 'object') { delete records[key]; return; }
-      records[key] = {done:Array.isArray(r.done) ? r.done.filter(id=>TASK_IDS.includes(id)) : [], note:typeof r.note==='string'?r.note:''};
+      const valid = new Set(taskIds());
+      DEFAULT_TASKS.forEach(t=>valid.add(t.id));
+      records[key] = {done:Array.isArray(r.done) ? r.done.filter(id=>valid.has(id)) : [], note:typeof r.note==='string'?r.note:''};
     });
   }
   function saveRecords(){
@@ -161,22 +188,64 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
   }
   function ensureToday(){ if(!records[today]) records[today] = {done:[],note:''}; }
   function todayDone(){ ensureToday(); return records[today].done; }
-  function countFor(key){ const r=records[key]; return r && Array.isArray(r.done) ? TASK_IDS.filter(id=>r.done.includes(id)).length : 0; }
-  function isFull(key){ return countFor(key)===6; }
+  function countFor(key){ const r=records[key]; if(!r||!Array.isArray(r.done)) return 0; const ids=new Set(taskIds()); return r.done.filter(id=>ids.has(id)).length; }
+  function isFull(key){ return tasks.length>0 && countFor(key)===tasks.length; }
 
   function renderDate(){
     const d = new Date();
     const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
     $('todayDate').textContent = `${d.getMonth()+1}月${d.getDate()}日 · ${weekdays[d.getDay()]}`;
   }
+  function renderTasks(){
+    const box=$('tasks'); box.innerHTML='';
+    if(editing){
+      tasks.forEach((t,i)=>{
+        const row=document.createElement('div'); row.className='edit-row'; row.dataset.id=t.id;
+        const num=document.createElement('span'); num.className='edit-num'; num.textContent=pad(i+1);
+        const name=document.createElement('input'); name.className='e-name'; name.maxLength=24; name.placeholder='任务名称'; name.value=t.name;
+        const desc=document.createElement('input'); desc.className='e-desc'; desc.maxLength=60; desc.placeholder='一句话说明（可选）'; desc.value=t.desc;
+        const del=document.createElement('button'); del.className='edit-del'; del.dataset.act='del'; del.title='删除这项'; del.textContent='×';
+        row.append(num,name,desc,del); box.append(row);
+      });
+      const actions=document.createElement('div'); actions.className='edit-actions';
+      const add=document.createElement('button'); add.className='small-btn'; add.dataset.act='add'; add.textContent='+ 添加任务';
+      const restore=document.createElement('button'); restore.className='small-btn'; restore.dataset.act='restore'; restore.title='恢复默认的六项任务'; restore.textContent='恢复默认';
+      const done=document.createElement('button'); done.className='small-btn primary-btn'; done.dataset.act='done'; done.textContent='完成编辑';
+      actions.append(add,restore,done); box.append(actions);
+      return;
+    }
+    if(!tasks.length){
+      const empty=document.createElement('div'); empty.className='task-empty'; empty.textContent='还没有任务，点右上角「编辑任务」添加你想坚持的事。'; box.append(empty);
+    }
+    const done=todayDone();
+    tasks.forEach((t,i)=>{
+      const btn=document.createElement('button'); btn.className='task'+(done.includes(t.id)?' done':''); btn.dataset.id=t.id;
+      const num=document.createElement('span'); num.className='task-num'; num.textContent=pad(i+1);
+      const copy=document.createElement('span'); copy.className='task-copy';
+      const name=document.createElement('div'); name.className='task-name'; name.textContent=t.name;
+      const desc=document.createElement('div'); desc.className='task-desc'; desc.textContent=t.desc;
+      copy.append(name,desc);
+      const check=document.createElement('span'); check.className='check';
+      check.innerHTML='<svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      btn.append(num,copy,check); box.append(btn);
+    });
+  }
+  function commitEdit(){
+    document.querySelectorAll('.edit-row').forEach(row=>{
+      const t=tasks.find(x=>x.id===row.dataset.id);
+      if(t){ t.name=row.querySelector('.e-name').value.trim()||'未命名任务'; t.desc=row.querySelector('.e-desc').value.trim(); }
+    });
+  }
   function renderToday(){
-    const done = todayDone(), count = TASK_IDS.filter(id=>done.includes(id)).length, pct = Math.round(count/6*100);
+    syncToday();
+    if(editing){ renderTasks(); return; }
+    const done = todayDone(), count = countFor(today), total = tasks.length, pct = total ? Math.round(count/total*100) : 0;
     $('percent').textContent = pct+'%';
     $('progressFill').style.width = pct+'%';
-    $('countText').textContent = `${count} / 6`;
-    $('progressText').textContent = count===0 ? '从今天开始，积累每一点进步。' : count===6 ? '今天的计划已经圆满完成。' : '每完成一件事，都是向前一步。';
-    document.querySelectorAll('.task').forEach(btn=>btn.classList.toggle('done',done.includes(btn.dataset.id)));
-    $('doneBanner').classList.toggle('show',count===6);
+    $('countText').textContent = `${count} / ${total}`;
+    $('progressText').textContent = total===0 ? '还没有任务，点「编辑任务」开始吧。' : count===0 ? '从今天开始，积累每一点进步。' : count===total ? '今天的计划已经圆满完成。' : '每完成一件事，都是向前一步。';
+    renderTasks();
+    $('doneBanner').classList.toggle('show',isFull(today));
     $('dailyNote').value = records[today].note || '';
     updateNoteStatus();
     renderHistory();
@@ -185,12 +254,13 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
   function renderHistory(){
     const grid=$('weekGrid'); grid.innerHTML='';
     const labels=['日','一','二','三','四','五','六'];
+    const total = tasks.length;
     for(let i=6;i>=0;i--){
       const d=new Date(); d.setDate(d.getDate()-i);
       const key=localDateKey(d), count=countFor(key);
       const cell=document.createElement('div'); cell.className='day';
       const label=document.createElement('div'); label.className='day-label'; label.textContent=labels[d.getDay()];
-      const dot=document.createElement('div'); dot.className='day-dot'+(count===6?' full':count>0?' some':''); dot.textContent=count?count+'/6':'—';
+      const dot=document.createElement('div'); dot.className='day-dot'+(isFull(key)?' full':count>0?' some':''); dot.textContent=total?(count+'/'+total):'—';
       cell.append(label,dot); grid.append(cell);
     }
     const list=$('historyList'); list.innerHTML='';
@@ -202,8 +272,10 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
       date.className='history-date'; date.textContent=key===today?'今天':key;
       detail.className='history-detail'; detail.textContent=(records[key].note||'暂无随手记').slice(0,36);
       left.append(date,detail);
-      const pct=Math.round(countFor(key)/6*100), right=document.createElement('div'); right.className='history-pct'; right.textContent=`${countFor(key)}/6 · ${pct}%`;
-      row.append(left,right); list.append(row);
+      const cnt=countFor(key), pct=total?Math.round(cnt/total*100):0, right=document.createElement('div'); right.className='history-pct'; right.textContent=`${cnt}/${total} · ${pct}%`;
+      row.append(left,right); row.style.cursor='pointer';
+      row.addEventListener('click',showInfo.bind(null,key===today?'今天 · '+key:key,records[key].note||'这一天没有随手记。'));
+      list.append(row);
     });
   }
   function renderStats(){
@@ -234,22 +306,25 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
     try{ if(navigator.vibrate) navigator.vibrate([35,45,35,60,90]); }catch(e){}
   }
   function toggleTask(id){
+    syncToday();
     ensureToday();
-    const done=todayDone(), wasFull=done.length===6;
+    const done=todayDone(), wasFull=isFull(today);
     if(done.includes(id)) records[today].done=done.filter(x=>x!==id);
     else records[today].done=[...done,id];
     saveRecords(); renderToday();
-    const nowFull=todayDone().length===6;
+    const nowFull=isFull(today);
     try{if(navigator.vibrate) navigator.vibrate(nowFull&&!wasFull?[35,45,35,60,90]:18);}catch(e){}
-    if(nowFull&&!wasFull){celebrate();showToast('今天的六项计划全部完成！');}
+    if(nowFull&&!wasFull){celebrate();showToast('今天的任务全部完成！');}
     else showToast(nowFull?'已取消完成':'已更新今日进度');
   }
   function updateNoteStatus(){const n=$('dailyNote').value.length;$('noteStatus').textContent=`自动保存 · ${n} / 600`;}
-  function saveNote(){ensureToday();records[today].note=$('dailyNote').value;saveRecords();updateNoteStatus();}
-  function showModal(title,text,action){$('modalTitle').textContent=title;$('modalText').textContent=text;modalAction=action;$('modal').classList.add('show');}
+  function saveNote(){syncToday();ensureToday();records[today].note=$('dailyNote').value;saveRecords();updateNoteStatus();}
+  function showModal(title,text,action){$('modalTitle').textContent=title;$('modalText').textContent=text;$('modalText').style.whiteSpace='normal';$('cancelModal').style.display='';$('confirmModal').textContent='确认';modalAction=action;$('modal').classList.add('show');}
+  function showInfo(title,text){$('modalTitle').textContent=title;$('modalText').textContent=text;$('modalText').style.whiteSpace='pre-wrap';$('cancelModal').style.display='none';$('confirmModal').textContent='关闭';modalAction=null;$('modal').classList.add('show');}
   function closeModal(){$('modal').classList.remove('show');modalAction=null;}
   function exportData(){
-    const payload={app:'ZCX Daily Growth',format:1,exportedAt:new Date().toISOString(),records};
+    syncToday();
+    const payload={app:'ZCX Daily Growth',format:2,exportedAt:new Date().toISOString(),tasks,records};
     const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`ZCX-growth-backup-${today}.json`;a.click();URL.revokeObjectURL(url);showToast('备份文件已导出');
   }
@@ -259,17 +334,45 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
       try{
         const parsed=JSON.parse(reader.result), incoming=parsed.records||parsed;
         if(!incoming||typeof incoming!=='object'||Array.isArray(incoming))throw new Error('bad');
+        // 备份里带任务表则一并恢复，兼容旧的纯记录备份。
+        if(Array.isArray(parsed.tasks) && parsed.tasks.length){
+          const tl=parsed.tasks.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string').map(t=>({id:t.id,name:t.name,desc:typeof t.desc==='string'?t.desc:''}));
+          if(tl.length){ tasks=tl; saveTasks(); }
+        }
+        const valid=new Set(taskIds()); DEFAULT_TASKS.forEach(t=>valid.add(t.id));
         const clean={};
         Object.entries(incoming).forEach(([key,r])=>{
           if(!/^\d{4}-\d{2}-\d{2}$/.test(key)||!r||typeof r!=='object')return;
-          clean[key]={done:Array.isArray(r.done)?r.done.filter(id=>TASK_IDS.includes(id)):[],note:typeof r.note==='string'?r.note:''};
+          clean[key]={done:Array.isArray(r.done)?r.done.filter(id=>valid.has(id)):[],note:typeof r.note==='string'?r.note:''};
         });
-        records={...records,...clean};saveRecords();renderToday();showToast('备份导入成功');
+        records={...records,...clean};saveRecords();loadRecords();renderToday();showToast('备份导入成功');
       }catch(e){showToast('文件格式不正确，未能导入');}
     };
     reader.readAsText(file);
   }
-  document.querySelectorAll('.task').forEach(btn=>btn.addEventListener('click',()=>toggleTask(btn.dataset.id)));
+  // 任务区用事件委托：展示态点击打卡，编辑态处理增/删/恢复/完成。
+  $('tasks').addEventListener('click',e=>{
+    const action=e.target.closest('[data-act]');
+    if(action){
+      const act=action.dataset.act;
+      commitEdit();
+      if(act==='add'){ tasks.push({id:newTaskId(),name:'新任务',desc:''}); saveTasks(); renderTasks(); }
+      else if(act==='del'){
+        const row=action.closest('.edit-row');
+        if(tasks.length<=1){ showToast('至少保留一项任务'); return; }
+        if(row){ tasks=tasks.filter(t=>t.id!==row.dataset.id); saveTasks(); renderTasks(); }
+      }
+      else if(act==='restore'){ showModal('恢复默认任务？','当前任务列表会被默认的六项替换，已有的打卡记录会保留。',()=>{ tasks=DEFAULT_TASKS.map(t=>({...t})); editing=false; $('editTasksBtn').textContent='编辑任务'; saveTasks(); renderToday(); showToast('已恢复默认任务'); }); }
+      else if(act==='done'){ saveTasks(); editing=false; $('editTasksBtn').textContent='编辑任务'; renderToday(); showToast('任务已保存'); }
+      return;
+    }
+    const btn=e.target.closest('.task');
+    if(btn) toggleTask(btn.dataset.id);
+  });
+  $('editTasksBtn').addEventListener('click',()=>{
+    if(editing){ commitEdit(); saveTasks(); editing=false; $('editTasksBtn').textContent='编辑任务'; renderToday(); showToast('任务已保存'); }
+    else { editing=true; $('editTasksBtn').textContent='保存并返回'; renderTasks(); }
+  });
   document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===btn));
     document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===btn.dataset.tab+'Panel'));
@@ -277,15 +380,15 @@ h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:
   $('dailyNote').addEventListener('input',()=>{saveNote();});
   $('exportBtn').addEventListener('click',exportData);
   $('backupBtn').addEventListener('click',exportData);
-  $('importBtn').addEventListener('click',()=>$('importFile').click());
+  $('importBtn').addEventListener('click',()=>showModal('导入备份？','备份文件里同一天的记录会覆盖当前记录，其他日期会保留。',()=>$('importFile').click()));
   $('importFile').addEventListener('change',e=>{if(e.target.files[0])importData(e.target.files[0]);e.target.value='';});
-  $('resetBtn').addEventListener('click',()=>showModal('重置今日打卡？','只会清空今天的六项完成状态，不会删除过去的记录和随手记。',()=>{
-    ensureToday();records[today].done=[];saveRecords();renderToday();showToast('今日打卡已重置');
+  $('resetBtn').addEventListener('click',()=>showModal('重置今日打卡？','只会清空今天所有任务的完成状态，不会删除过去的记录和随手记。',()=>{
+    syncToday();ensureToday();records[today].done=[];saveRecords();renderToday();showToast('今日打卡已重置');
   }));
   $('cancelModal').addEventListener('click',closeModal);
   $('confirmModal').addEventListener('click',()=>{const fn=modalAction;closeModal();if(fn)fn();});
   $('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal();});
-  loadRecords();ensureToday();renderDate();renderToday();
+  loadTasks();loadRecords();ensureToday();renderDate();renderToday();
 })();
 </script>
 </body>
