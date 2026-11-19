@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ZCX.">
+<title>ZCX. — 每日成长</title>
+<style>
+:root{--bg:#f5f5f7;--surface:#fff;--ink:#17181c;--muted:#858891;--line:#e8e9ed;--blue:#2767e8;--blue-soft:#edf3ff;--green:#27845d;--shadow:0 12px 40px rgba(20,25,40,.055);--radius:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit}button{cursor:pointer}
+.shell{width:min(100% - 36px,920px);margin:0 auto;padding:26px 0 54px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:52px}
+.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:42px;height:42px;border-radius:13px;background:#17181c;color:white;display:grid;place-items:center;font-size:18px;font-weight:750;letter-spacing:-1.4px}.brand-name{font-size:15px;font-weight:750;letter-spacing:1.2px}.brand-sub{font-size:9px;letter-spacing:1.7px;color:var(--muted);margin-top:3px}
+.top-actions{display:flex;align-items:center;gap:9px}.icon-btn{border:1px solid var(--line);background:var(--surface);border-radius:999px;width:39px;height:39px;display:grid;place-items:center;color:#555;transition:.2s}.icon-btn:hover{background:#f0f2f6}.edition{font-size:10px;letter-spacing:1.2px;color:#777;background:#fff;border:1px solid var(--line);padding:9px 12px;border-radius:999px}
+.hero{margin-bottom:30px}.date-line{font-size:11px;letter-spacing:1.6px;color:var(--muted);font-weight:650;margin-bottom:18px;text-transform:uppercase}
+h1{font-size:clamp(32px,6vw,52px);letter-spacing:-2.2px;line-height:1.15;margin:0 0 13px;font-weight:720}.subtitle{color:#777b85;font-size:14px;line-height:1.8;margin:0}.hero-en{font-size:10px;letter-spacing:2.4px;color:#a0a3aa;margin-top:24px;font-weight:650}
+.overview{background:#17191f;color:#fff;border-radius:25px;padding:25px 26px 23px;box-shadow:var(--shadow);margin:30px 0 34px;position:relative;overflow:hidden}.overview:after{content:"";position:absolute;width:210px;height:210px;border-radius:50%;right:-95px;top:-125px;background:rgba(255,255,255,.055)}
+.overview-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.eyebrow{font-size:10px;letter-spacing:1.8px;color:#a4a7b0;font-weight:650}.percent{font-size:31px;letter-spacing:-1.5px;font-weight:650;font-variant-numeric:tabular-nums}.progress-track{height:5px;border-radius:9px;background:#3b3e47;margin:18px 0 12px;overflow:hidden}.progress-fill{height:100%;width:0;background:#fff;border-radius:9px;transition:width .55s cubic-bezier(.2,.8,.2,1)}.overview-foot{display:flex;justify-content:space-between;color:#a4a7b0;font-size:11px}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin:0 2px 15px}.section-title{font-size:16px;font-weight:700;letter-spacing:-.3px}.section-meta{font-size:10px;letter-spacing:1px;color:var(--muted)}
+.tasks{display:grid;grid-template-columns:1fr 1fr;gap:11px}.task{border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:17px 17px 16px;min-height:112px;text-align:left;display:flex;align-items:flex-start;gap:13px;box-shadow:0 3px 12px rgba(20,25,40,.018);transition:transform .2s,border-color .2s,background .2s;position:relative;color:inherit}.task:hover{transform:translateY(-2px);border-color:#cfd7e7}.task:active{transform:scale(.985)}.task.done{border-color:#c9d9ff;background:#f8faff}.task-num{font-size:10px;color:#a0a3aa;letter-spacing:.8px;padding-top:3px;min-width:20px}.task-copy{flex:1}.task-name{font-size:14px;font-weight:650;margin:1px 0 7px}.task-desc{font-size:11px;color:#9699a1;line-height:1.55}.check{width:21px;height:21px;border:1.5px solid #d5d7dc;border-radius:50%;flex:none;margin-top:1px;display:grid;place-items:center;transition:.22s}.task.done .check{background:var(--blue);border-color:var(--blue);color:white;animation:pop .28s ease}.check svg{width:12px;height:12px;opacity:0;transform:scale(.6);transition:.18s}.task.done .check svg{opacity:1;transform:scale(1)}@keyframes pop{50%{transform:scale(1.18)}}
+.edit-row{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px 12px;margin-bottom:9px}.edit-num{font-size:10px;color:#a0a3aa;min-width:20px}.edit-row input{min-width:0;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:12px;outline:0;background:#fafbfc;color:#34363c}.edit-row input:focus{border-color:#cfd7e7;background:#fff}.edit-row .e-name{flex:1}.edit-row .e-desc{flex:1.3}.edit-del{border:0;background:#fff1f0;color:#c0392b;border-radius:999px;width:30px;height:30px;flex:none;font-size:15px;line-height:1}.edit-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}.edit-actions .small-btn{flex:1;min-width:88px;text-align:center;padding:11px 8px}.primary-btn{background:#17191f;color:#fff;border-color:#17191f}.primary-btn:hover{color:#fff;border-color:#17191f}.section-edit{margin-left:9px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 10px;font-size:10px;color:#666;letter-spacing:0}.section-edit:hover{border-color:#b9c7e2;color:#315fae}.task-empty{grid-column:1/-1;padding:30px 18px;text-align:center;color:#999;font-size:12px;border:1px dashed var(--line);border-radius:18px;background:#fff}
+.done-banner{display:none;margin-top:14px;padding:17px 18px;background:#edf7f1;border:1px solid #d6ebdf;border-radius:17px;color:#276c4c;animation:rise .35s ease}.done-banner.show{display:block}.done-banner strong{font-size:14px}.done-banner p{font-size:11px;margin:5px 0 0;color:#57846d}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.quote{margin:33px 0 28px;padding:18px 20px;border-left:2px solid #cbd7ef;color:#737782;font-size:12px;line-height:1.8;background:rgba(255,255,255,.48);border-radius:0 14px 14px 0}
+.tabs{display:flex;gap:7px;border-bottom:1px solid var(--line);margin:34px 0 19px;padding-bottom:10px}.tab{border:0;background:transparent;color:#898c95;font-size:12px;padding:9px 13px;border-radius:999px}.tab.active{background:#17191f;color:white}
+.panel{display:none}.panel.active{display:block;animation:rise .25s ease}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px 15px}.stat-num{font-size:25px;font-weight:680;letter-spacing:-1px;font-variant-numeric:tabular-nums}.stat-label{font-size:10px;color:#898d96;margin-top:5px}
+.history-card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:18px;margin-bottom:12px}.history-title{font-size:12px;font-weight:700;margin-bottom:14px}.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.day{text-align:center}.day-label{font-size:9px;color:#999da6;margin-bottom:8px}.day-dot{height:32px;border-radius:10px;background:#f0f1f4;display:grid;place-items:center;font-size:10px;color:#a1a4ab}.day-dot.some{background:#e7efff;color:#386bc7}.day-dot.full{background:#2767e8;color:white}.history-list{display:flex;flex-direction:column;gap:8px}.history-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0f0f2;font-size:12px}.history-row:last-child{border-bottom:0}.history-date{font-weight:600}.history-detail{font-size:10px;color:#92959d;margin-top:4px}.history-pct{font-weight:650;color:#5d6574;font-variant-numeric:tabular-nums}
+.note-box{background:#fff;border:1px solid var(--line);border-radius:19px;padding:17px;margin-top:12px}.note-label{font-size:11px;font-weight:700;margin-bottom:10px}.note-box textarea{width:100%;min-height:90px;resize:vertical;border:0;outline:0;color:#34363c;font-size:12px;line-height:1.7;background:transparent}.note-box textarea::placeholder{color:#b2b5bc}.note-status{font-size:10px;color:#9a9da5;text-align:right}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.small-btn{border:1px solid var(--line);background:#fff;color:#666b75;border-radius:999px;padding:9px 13px;font-size:10px}.small-btn:hover{border-color:#b9c7e2;color:#315fae}
+.footer{border-top:1px solid var(--line);margin-top:43px;padding-top:25px;text-align:center}.footer-logo{font-size:26px;font-weight:780;letter-spacing:-1.5px}.footer-name{font-size:10px;letter-spacing:2px;color:#747984;margin-top:5px}.footer-line{font-size:9px;color:#a4a7ae;letter-spacing:1.2px;margin-top:12px}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#17191f;color:#fff;border-radius:999px;padding:11px 17px;font-size:11px;box-shadow:0 8px 30px #0002;transition:.25s;z-index:5;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4}.confetti i{position:absolute;top:-12px;width:6px;height:10px;background:#4779e8;border-radius:2px;animation:fall 1.7s ease-in forwards}@keyframes fall{to{transform:translateY(105vh) rotate(650deg);opacity:0}}
+.modal-backdrop{position:fixed;inset:0;background:#10131a55;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.modal-backdrop.show{display:flex}.modal{width:min(100%,390px);background:#fff;border-radius:22px;padding:23px;box-shadow:0 20px 70px #0003}.modal h2{font-size:17px;margin:0 0 9px}.modal p{font-size:12px;line-height:1.7;color:#777b84}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+@media(max-width:620px){.shell{width:min(100% - 30px,560px);padding-top:19px}.topbar{margin-bottom:42px}.edition{display:none}.tasks{grid-template-columns:1fr}.task{min-height:91px;padding:15px 16px}.overview{padding:22px 21px}.stats{gap:7px}.stat{padding:14px 11px}.stat-num{font-size:22px}.section-head{margin-bottom:12px}h1{letter-spacing:-1.5px}.hero{margin-bottom:24px}.edit-row{flex-wrap:wrap}.edit-row .e-name,.edit-row .e-desc{flex:1 1 100%}.edit-actions .small-btn{min-width:80px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ZCX Liquid Glass refresh */
+:root{
+  --bg:#090b10;--surface:rgba(255,255,255,.065);--ink:#f4f5f8;--muted:#9399a7;
+  --line:rgba(255,255,255,.105);--blue:#78a6ff;--blue-soft:rgba(104,150,255,.14);
+  --green:#6dd5a4;--shadow:0 22px 70px rgba(0,0,0,.30);--radius:24px;
+}
+body{
+  background:radial-gradient(ellipse at 12% 5%,rgba(62,94,160,.18),transparent 38%),
+             radial-gradient(ellipse at 88% 42%,rgba(78,56,126,.13),transparent 40%),var(--bg);
+  color:var(--ink);background-attachment:fixed;position:relative;
+}
+body:before,body:after{
+  content:"";position:fixed;width:340px;height:340px;border-radius:50%;filter:blur(90px);
+  opacity:.12;pointer-events:none;z-index:-1;animation:ambientDrift 22s ease-in-out infinite alternate;
+}
+body:before{background:#568cff;top:-170px;left:-160px}
+body:after{background:#9878ff;right:-190px;bottom:-160px;animation-delay:-8s}
+@keyframes ambientDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(45px,35px,0)}}
+.shell{padding-top:30px}
+.brand-mark{background:linear-gradient(145deg,#f5f7ff,#a9b9d8);color:#12151d;box-shadow:0 6px 22px rgba(120,166,255,.15)}
+.brand-sub,.hero-en,.section-meta,.eyebrow{color:#8f98aa}
+.icon-btn,.edition,.task,.edit-row,.edit-row input,.edit-del,.section-edit,.task-empty,
+.stat,.history-card,.note-box,.quote,.small-btn,.modal,.tabs,.done-banner{
+  border-color:rgba(255,255,255,.10);
+}
+.icon-btn,.edition,.edit-row,.edit-row input,.edit-del,.section-edit,.task-empty,
+.stat,.history-card,.note-box,.small-btn,.modal,.tabs,.done-banner{
+  background:rgba(255,255,255,.065);color:var(--ink);
+  backdrop-filter:blur(22px) saturate(155%);-webkit-backdrop-filter:blur(22px) saturate(155%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 12px 32px rgba(0,0,0,.12);
+}
+.icon-btn:hover,.small-btn:hover,.section-edit:hover{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.18)}
+.edition{color:#aeb5c4}
+.hero h1{color:#f5f6fa}
+.subtitle{color:#a0a6b3}
+.overview{
+  background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.045));
+  border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(28px) saturate(150%);
+  -webkit-backdrop-filter:blur(28px) saturate(150%);box-shadow:0 24px 65px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.overview:after{background:radial-gradient(circle,rgba(120,166,255,.22),transparent 70%);width:280px;height:280px;right:-120px;top:-170px}
+.percent{color:#f8fbff}
+.progress-track{background:rgba(255,255,255,.14)}
+.progress-fill{background:linear-gradient(90deg,#dbe7ff,#fff);box-shadow:0 0 14px rgba(190,215,255,.3)}
+.task{
+  background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.035));
+  border:1px solid rgba(255,255,255,.105);color:var(--ink);
+  backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 12px 34px rgba(0,0,0,.12);
+}
+.task:hover{transform:translateY(-3px);border-color:rgba(150,185,255,.28);background:rgba(255,255,255,.105)}
+.task.done{background:linear-gradient(145deg,rgba(79,125,219,.22),rgba(255,255,255,.055));border-color:rgba(120,166,255,.4);box-shadow:0 0 26px rgba(80,125,220,.11),inset 0 1px 0 rgba(255,255,255,.08)}
+.task-name{color:#f3f5f9}.task-desc{color:#a1a8b6}.task-num{color:#8d97a8}
+.check{border-color:rgba(255,255,255,.25)}
+.task.done .check{background:linear-gradient(145deg,#8bb4ff,#4c83ec);border-color:#8bb4ff;box-shadow:0 0 14px rgba(120,166,255,.28)}
+.task.done .check svg{color:#fff}
+.task.done{animation:taskGlow .42s ease}
+@keyframes taskGlow{50%{box-shadow:0 0 30px rgba(100,150,255,.19)}}
+.quote{background:rgba(255,255,255,.035);border-left-color:rgba(120,166,255,.55);color:#a0a7b5}
+.tabs{border-bottom:0;border-radius:999px;padding:5px;gap:4px}
+.tab{color:#a2a8b4;transition:all .25s}
+.tab.active{background:linear-gradient(135deg,#f2f5ff,#aebfe2);color:#11151e;box-shadow:0 4px 20px rgba(120,166,255,.15)}
+.stat-num{color:#f4f6fb}.stat-label{color:#9da5b3}
+.history-title{color:#e9edf5}.day-label{color:#9aa2b1}
+.day-dot{background:rgba(255,255,255,.08);color:#9da5b2}
+.day-dot.some{background:rgba(120,166,255,.17);color:#b9d0ff}
+.day-dot.full{background:linear-gradient(145deg,#8bb4ff,#4d83ec);color:#101722;box-shadow:0 0 16px rgba(120,166,255,.2)}
+.history-row{border-color:rgba(255,255,255,.07)}
+.history-date{color:#e7ebf2}.history-detail{color:#9aa2b0}.history-pct{color:#c1c9d8}
+.note-box textarea{color:#e8edf5}.note-box textarea::placeholder{color:#7e8797}
+.note-status{color:#8c96a5}
+.small-btn{color:#c1c8d5}
+.primary-btn{background:linear-gradient(145deg,#f2f5ff,#b4c6e9)!important;color:#11151e!important;border-color:transparent!important}
+.edit-row input{background:rgba(255,255,255,.055);color:#e8edf5}
+.edit-row input:focus{background:rgba(255,255,255,.10);border-color:rgba(120,166,255,.4)}
+.edit-del{background:rgba(255,80,80,.12);color:#ff9999}
+.section-edit{color:#b5bdcc}
+.done-banner.show{background:rgba(67,165,118,.12);color:#9be0bb;border-color:rgba(109,213,164,.25)}
+.done-banner p{color:#a4cdb6}
+.footer{border-color:rgba(255,255,255,.1)}
+.footer-name{color:#a0a8b7}.footer-line{color:#788292}
+.toast{background:rgba(25,29,39,.85);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.modal-backdrop{background:rgba(4,7,12,.58);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.modal{background:rgba(25,29,39,.88)}
+.modal p{color:#a8afbd}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.panel.active{animation:panelIn .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes panelIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+button{transition:transform .18s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease}
+button:active{transform:scale(.985)}
+@media(max-width:620px){
+  .shell{padding-top:20px}
+  .tabs{position:relative}
+  .task{border-radius:21px}
+}
+@media(prefers-reduced-motion:reduce){body:before,body:after{animation:none!important}}
+@media(prefers-reduced-transparency:reduce){
+  .overview,.task,.icon-btn,.edition,.edit-row,.edit-row input,.stat,.history-card,.note-box,.small-btn,.modal,.tabs{
+    backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background-color:#161a22!important
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">Z.</div>
+      <div><div class="brand-name">ZCX.</div><div class="brand-sub">PERSONAL EDITION</div></div>
+    </div>
+    <div class="top-actions">
+      <span class="edition">MY DAILY GROWTH</span>
+      <button class="icon-btn" id="backupBtn" aria-label="数据备份" title="数据备份">↥</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="date-line" id="todayDate">—</div>
+      <h1>把时间，花在自己身上。</h1>
+      <p class="subtitle">不必急着成为更好的人，先认真过好今天。</p>
+      <div class="hero-en">MAKE TODAY COUNT</div>
+    </section>
+
+    <section class="overview" aria-label="今日进度">
+      <div class="overview-head"><span class="eyebrow">TODAY'S PROGRESS</span><span class="percent" id="percent">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="overview-foot"><span id="progressText">从今天开始，积累每一点进步。</span><span id="countText">0 / 6</span></div>
+    </section>
+
+    <div class="section-head"><div class="section-title">今日计划</div><div class="section-meta"><span>DAILY ROUTINE</span><button class="section-edit" id="editTasksBtn">编辑任务</button></div></div>
+    <section class="tasks" id="tasks"></section>
+    <div class="done-banner" id="doneBanner"><strong>今天的任务，全部完成。</strong><p>很好。把这份认真留给明天的自己。</p></div>
+    <div class="quote">成长不是每天都要有惊人的变化，而是在普通的一天里，也愿意为自己做一点事。</div>
+
+    <nav class="tabs" aria-label="成长记录导航">
+      <button class="tab active" data-tab="history">成长记录</button>
+      <button class="tab" data-tab="stats">累计统计</button>
+    </nav>
+    <section class="panel active" id="historyPanel">
+      <div class="history-card">
+        <div class="history-title">最近 7 天 · 完成趋势</div>
+        <div class="week-grid" id="weekGrid"></div>
+      </div>
+      <div class="history-card">
+        <div class="history-title">每日记录</div>
+        <div class="history-list" id="historyList"></div>
+      </div>
+      <div class="note-box">
+        <div class="note-label">今日随手记</div>
+        <textarea id="dailyNote" maxlength="600" placeholder="记录今天的想法、收获，或者一件值得记住的小事……"></textarea>
+        <div class="note-status" id="noteStatus">自动保存 · 0 / 600</div>
+      </div>
+    </section>
+    <section class="panel" id="statsPanel">
+      <div class="stats">
+        <div class="stat"><div class="stat-num" id="daysStat">0</div><div class="stat-label">有记录的天数</div></div>
+        <div class="stat"><div class="stat-num" id="streakStat">0</div><div class="stat-label">连续全勤天数</div></div>
+        <div class="stat"><div class="stat-num" id="totalStat">0</div><div class="stat-label">累计完成事项</div></div>
+      </div>
+      <div class="history-card">
+        <div class="history-title">给自己的小提醒</div>
+        <p style="font-size:12px;line-height:1.8;color:#777b84;margin:0">统计不是为了给每一天打分，而是帮你看见自己走过的路。偶尔漏掉一项也没关系，明天继续就好。</p>
+      </div>
+    </section>
+    <div class="tools">
+      <button class="small-btn" id="exportBtn">导出备份</button>
+      <button class="small-btn" id="importBtn">导入备份</button>
+      <button class="small-btn" id="resetBtn">重置今日打卡</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-logo">ZCX.</div>
+    <div class="footer-name">ZHAO CHENXU</div>
+    <div class="footer-line">PERSONAL GROWTH SYSTEM · 2026</div>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+<div class="confetti" id="confetti"></div>
+<div class="modal-backdrop" id="modal">
+  <div class="modal"><h2 id="modalTitle">确认操作</h2><p id="modalText">确定要继续吗？</p><div class="modal-actions"><button class="small-btn" id="cancelModal">取消</button><button class="small-btn" id="confirmModal" style="background:#17191f;color:#fff;border-color:#17191f">确认</button></div></div>
+</div>
+<script>
+(() => {
+  'use strict';
+  // 兼容旧版正式网页：不要更改此 key、任务 ID 或记录字段。
+  const STORAGE_KEY = 'dailyGrowthRecords_v1';
+  const TASKS_KEY = 'dailyGrowthTasks_v1';
+  // 默认任务：保留原始 ID 和顺序，保证已有打卡记录完全兼容。
+  const DEFAULT_TASKS = [
+    {id:'vocab', name:'背单词', desc:'积累词汇，让每一次学习都有所沉淀。'},
+    {id:'gym', name:'健身', desc:'保持规律运动，在坚持中积累能量。'},
+    {id:'cet', name:'英语六级专项', desc:'练习与复盘并行，把错误变成进步。'},
+    {id:'phone', name:'控制手机使用', desc:'减少无意识的信息消耗，把时间留给自己。'},
+    {id:'read', name:'阅读', desc:'拓宽认知边界，给思考留一点空间。'},
+    {id:'ai', name:'AI 实践', desc:'主动探索新技术，把想法变成实践。'}
+  ];
+  const $ = id => document.getElementById(id);
+  const pad = n => String(n).padStart(2,'0');
+  const localDateKey = (date = new Date()) => `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+  const dateFromKey = key => { const [y,m,d]=key.split('-').map(Number); return new Date(y,m-1,d); };
+  let today = localDateKey();
+  function syncToday(){
+    const k = localDateKey();
+    if(k === today) return false;
+    today = k;
+    return true;
+  }
+  let records = {};
+  let tasks = [];
+  let editing = false;
+  let modalAction = null;
+  let toastTimer = null;
+
+  function loadTasks(){
+    try {
+      const raw = localStorage.getItem(TASKS_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      if(Array.isArray(parsed) && parsed.length){
+        tasks = parsed.filter(t=>t && typeof t.id==='string' && typeof t.name==='string').map(t=>({id:t.id,name:t.name,desc:typeof t.desc==='string'?t.desc:''}));
+      } else tasks = DEFAULT_TASKS.map(t=>({...t}));
+    } catch(e){ tasks = DEFAULT_TASKS.map(t=>({...t})); }
+  }
+  function saveTasks(){
+    try { localStorage.setItem(TASKS_KEY, JSON.stringify(tasks)); }
+    catch(e){ showToast('存储空间不足，任务未能保存'); }
+  }
+  function taskIds(){ return tasks.map(t=>t.id); }
+  function newTaskId(){ return 'custom_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6); }
+
+  function loadRecords(){
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : {};
+      if(parsed && typeof parsed === 'object' && !Array.isArray(parsed)) records = parsed;
+    } catch(e){ records = {}; showToast('读取本地记录失败，请先尝试导入备份'); }
+    // 清理不合法字段：保留已知任务 ID 与用户自定义但仍在任务表中的 ID。
+    Object.keys(records).forEach(key => {
+      const r = records[key];
+      if(!r || typeof r !== 'object') { delete records[key]; return; }
+      const snap = Array.isArray(r.tasksSnapshot) ? r.tasksSnapshot
+        .filter(t=>t && typeof t.id==='string' && typeof t.name==='string')
+        .map(t=>({id:t.id,name:t.name,desc:typeof t.desc==='string'?t.desc:''})) : null;
+      const effectiveSnap = snap && snap.length ? snap : DEFAULT_TASKS.map(t=>({...t}));
+      const valid = new Set([...taskIds(), ...DEFAULT_TASKS.map(t=>t.id), ...effectiveSnap.map(t=>t.id)]);
+      records[key] = {done:Array.isArray(r.done) ? r.done.filter(id=>valid.has(id)) : [],
+        note:typeof r.note==='string'?r.note:'',
+        tasksSnapshot:effectiveSnap};
+    });
+  }
+  function saveRecords(){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(records)); }
+    catch(e){ showToast('浏览器存储空间不足，建议导出备份'); }
+  }
+  function ensureToday(){
+    if(!records[today]) records[today] = {done:[],note:'',tasksSnapshot:tasks.map(t=>({...t}))};
+    else records[today].tasksSnapshot=tasks.map(t=>({...t}));
+  }
+  function todayDone(){ ensureToday(); return records[today].done; }
+  function snapshotFor(key){
+    const r=records[key];
+    if(!r)return [];
+    if(Array.isArray(r.tasksSnapshot)&&r.tasksSnapshot.length)return r.tasksSnapshot;
+    return DEFAULT_TASKS.map(t=>({...t}));
+  }
+  function countFor(key){
+    const r=records[key]; if(!r||!Array.isArray(r.done))return 0;
+    const ids=new Set(snapshotFor(key).map(t=>t.id));return r.done.filter(id=>ids.has(id)).length;
+  }
+  function totalFor(key){return snapshotFor(key).length;}
+  function isFull(key){const total=totalFor(key);return total>0&&countFor(key)===total;}
+
+  function renderDate(){
+    const d = new Date();
+    const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+    $('todayDate').textContent = `${d.getMonth()+1}月${d.getDate()}日 · ${weekdays[d.getDay()]}`;
+  }
+  function renderTasks(){
+    const box=$('tasks'); box.innerHTML='';
+    if(editing){
+      tasks.forEach((t,i)=>{
+        const row=document.createElement('div'); row.className='edit-row'; row.dataset.id=t.id;
+        const num=document.createElement('span'); num.className='edit-num'; num.textContent=pad(i+1);
+        const name=document.createElement('input'); name.className='e-name'; name.maxLength=24; name.placeholder='任务名称'; name.value=t.name;
+        const desc=document.createElement('input'); desc.className='e-desc'; desc.maxLength=60; desc.placeholder='一句话说明（可选）'; desc.value=t.desc;
+        const del=document.createElement('button'); del.className='edit-del'; del.dataset.act='del'; del.title='删除这项'; del.textContent='×';
+        row.append(num,name,desc,del); box.append(row);
+      });
+      const actions=document.createElement('div'); actions.className='edit-actions';
+      const add=document.createElement('button'); add.className='small-btn'; add.dataset.act='add'; add.textContent='+ 添加任务';
+      const restore=document.createElement('button'); restore.className='small-btn'; restore.dataset.act='restore'; restore.title='恢复默认的六项任务'; restore.textContent='恢复默认';
+      const done=document.createElement('button'); done.className='small-btn primary-btn'; done.dataset.act='done'; done.textContent='完成编辑';
+      actions.append(add,restore,done); box.append(actions);
+      return;
+    }
+    if(!tasks.length){
+      const empty=document.createElement('div'); empty.className='task-empty'; empty.textContent='还没有任务，点右上角「编辑任务」添加你想坚持的事。'; box.append(empty);
+    }
+    const done=todayDone();
+    tasks.forEach((t,i)=>{
+      const btn=document.createElement('button'); btn.className='task'+(done.includes(t.id)?' done':''); btn.dataset.id=t.id;
+      const num=document.createElement('span'); num.className='task-num'; num.textContent=pad(i+1);
+      const copy=document.createElement('span'); copy.className='task-copy';
+      const name=document.createElement('div'); name.className='task-name'; name.textContent=t.name;
+      const desc=document.createElement('div'); desc.className='task-desc'; desc.textContent=t.desc;
+      copy.append(name,desc);
+      const check=document.createElement('span'); check.className='check';
+      check.innerHTML='<svg viewBox="0 0 16 16" fill="none"><path d="m3 8 3.2 3.2L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      btn.append(num,copy,check); box.append(btn);
+    });
+  }
+  function commitEdit(){
+    document.querySelectorAll('.edit-row').forEach(row=>{
+      const t=tasks.find(x=>x.id===row.dataset.id);
+      if(t){ t.name=row.querySelector('.e-name').value.trim()||'未命名任务'; t.desc=row.querySelector('.e-desc').value.trim(); }
+    });
+  }
+  function renderToday(){
+    syncToday();
+    if(editing){ renderTasks(); return; }
+    const done = todayDone(), count = countFor(today), total = tasks.length, pct = total ? Math.round(count/total*100) : 0;
+    $('percent').textContent = pct+'%';
+    $('progressFill').style.width = pct+'%';
+    $('countText').textContent = `${count} / ${total}`;
+    $('progressText').textContent = total===0 ? '还没有任务，点「编辑任务」开始吧。' : count===0 ? '从今天开始，积累每一点进步。' : count===total ? '今天的计划已经圆满完成。' : '每完成一件事，都是向前一步。';
+    renderTasks();
+    $('doneBanner').classList.toggle('show',isFull(today));
+    $('dailyNote').value = records[today].note || '';
+    updateNoteStatus();
+    renderHistory();
+    renderStats();
+  }
+  function renderHistory(){
+    const grid=$('weekGrid'); grid.innerHTML='';
+    const labels=['日','一','二','三','四','五','六'];
+    const total = tasks.length;
+    for(let i=6;i>=0;i--){
+      const d=new Date(); d.setDate(d.getDate()-i);
+      const key=localDateKey(d), count=countFor(key), total=totalFor(key);
+      const cell=document.createElement('div'); cell.className='day';
+      const label=document.createElement('div'); label.className='day-label'; label.textContent=labels[d.getDay()];
+      const dot=document.createElement('div'); dot.className='day-dot'+(isFull(key)?' full':count>0?' some':''); dot.textContent=total?(count+'/'+total):'—';
+      cell.append(label,dot); grid.append(cell);
+    }
+    const list=$('historyList'); list.innerHTML='';
+    const keys=Object.keys(records).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).sort((a,b)=>b.localeCompare(a)).slice(0,14);
+    if(!keys.length){ const empty=document.createElement('div'); empty.style.cssText='font-size:11px;color:#999;padding:8px 0'; empty.textContent='还没有成长记录，完成今天的第一项任务吧。'; list.append(empty); return; }
+    keys.forEach(key=>{
+      const row=document.createElement('div'); row.className='history-row';
+      const left=document.createElement('div'), date=document.createElement('div'), detail=document.createElement('div');
+      date.className='history-date'; date.textContent=key===today?'今天':key;
+      detail.className='history-detail'; detail.textContent=(records[key].note||'暂无随手记').slice(0,36);
+      left.append(date,detail);
+      const cnt=countFor(key), total=totalFor(key), pct=total?Math.round(cnt/total*100):0, right=document.createElement('div'); right.className='history-pct'; right.textContent=`${cnt}/${total} · ${pct}%`;
+      row.append(left,right); row.style.cursor='pointer';
+      row.addEventListener('click',showInfo.bind(null,key===today?'今天 · '+key:key,records[key].note||'这一天没有随手记。'));
+      list.append(row);
+    });
+  }
+  function renderStats(){
+    const keys=Object.keys(records).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k));
+    $('daysStat').textContent=keys.length;
+    $('totalStat').textContent=keys.reduce((sum,k)=>sum+countFor(k),0);
+    let streak=0, d=new Date();
+    // 连续全勤从今天开始计算；若今天未全勤，则从昨天开始。
+    if(!isFull(localDateKey(d))) d.setDate(d.getDate()-1);
+    while(isFull(localDateKey(d)) && streak<5000){streak++;d.setDate(d.getDate()-1);}
+    $('streakStat').textContent=streak;
+  }
+  function showToast(message){
+    const el=$('toast'); el.textContent=message; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2100);
+  }
+  function celebrate(){
+    $('confetti').innerHTML='';
+    for(let i=0;i<42;i++){
+      const bit=document.createElement('i');
+      bit.style.left=(Math.random()*100)+'%';
+      bit.style.animationDelay=(Math.random()*.55)+'s';
+      bit.style.transform=`rotate(${Math.random()*180}deg)`;
+      bit.style.background=['#4779e8','#79a2f5','#a9c3ff','#d4a84e','#71b99b'][i%5];
+      $('confetti').append(bit);
+    }
+    setTimeout(()=>$('confetti').innerHTML='',2400);
+    try{ if(navigator.vibrate) navigator.vibrate([35,45,35,60,90]); }catch(e){}
+  }
+  function toggleTask(id){
+    syncToday();
+    ensureToday();
+    const done=todayDone(), wasFull=isFull(today);
+    if(done.includes(id)) records[today].done=done.filter(x=>x!==id);
+    else records[today].done=[...done,id];
+    saveRecords(); renderToday();
+    const nowFull=isFull(today);
+    try{if(navigator.vibrate) navigator.vibrate(nowFull&&!wasFull?[35,45,35,60,90]:18);}catch(e){}
+    if(nowFull&&!wasFull){celebrate();showToast('今天的任务全部完成！');}
+    else showToast(nowFull?'已取消完成':'已更新今日进度');
+  }
+  function updateNoteStatus(){const n=$('dailyNote').value.length;$('noteStatus').textContent=`自动保存 · ${n} / 600`;}
+  function saveNote(){syncToday();ensureToday();records[today].note=$('dailyNote').value;saveRecords();updateNoteStatus();}
+  function showModal(title,text,action){$('modalTitle').textContent=title;$('modalText').textContent=text;$('modalText').style.whiteSpace='normal';$('cancelModal').style.display='';$('confirmModal').textContent='确认';modalAction=action;$('modal').classList.add('show');}
+  function showInfo(title,text){$('modalTitle').textContent=title;$('modalText').textContent=text;$('modalText').style.whiteSpace='pre-wrap';$('cancelModal').style.display='none';$('confirmModal').textContent='关闭';modalAction=null;$('modal').classList.add('show');}
+  function closeModal(){$('modal').classList.remove('show');modalAction=null;}
+  function exportData(){
+    syncToday();
+    const payload={app:'ZCX Daily Growth',format:2,exportedAt:new Date().toISOString(),tasks,records};
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`ZCX-growth-backup-${today}.json`;a.click();URL.revokeObjectURL(url);showToast('备份文件已导出');
+  }
+  function importData(file){
+    const reader=new FileReader();
+    reader.onload=()=>{
+      try{
+        const parsed=JSON.parse(reader.result), incoming=parsed.records||parsed;
+        if(!incoming||typeof incoming!=='object'||Array.isArray(incoming))throw new Error('bad');
+        // 备份里带任务表则一并恢复，兼容旧的纯记录备份。
+        if(Array.isArray(parsed.tasks) && parsed.tasks.length){
+          const tl=parsed.tasks.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string').map(t=>({id:t.id,name:t.name,desc:typeof t.desc==='string'?t.desc:''}));
+          if(tl.length){ tasks=tl; saveTasks(); }
+        }
+        const valid=new Set(taskIds()); DEFAULT_TASKS.forEach(t=>valid.add(t.id));
+        const clean={};
+        Object.entries(incoming).forEach(([key,r])=>{
+          if(!/^\d{4}-\d{2}-\d{2}$/.test(key)||!r||typeof r!=='object')return;
+          const snap=Array.isArray(r.tasksSnapshot)?r.tasksSnapshot.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string').map(t=>({id:t.id,name:t.name,desc:typeof t.desc==='string'?t.desc:''})):null;
+          clean[key]={done:Array.isArray(r.done)?r.done.filter(id=>valid.has(id)):[],note:typeof r.note==='string'?r.note:'',
+            tasksSnapshot:snap&&snap.length?snap:DEFAULT_TASKS.map(t=>({...t}))};
+        });
+        records={...records,...clean};saveRecords();loadRecords();renderToday();showToast('备份导入成功');
+      }catch(e){showToast('文件格式不正确，未能导入');}
+    };
+    reader.readAsText(file);
+  }
+  // 任务区用事件委托：展示态点击打卡，编辑态处理增/删/恢复/完成。
+  $('tasks').addEventListener('click',e=>{
+    const action=e.target.closest('[data-act]');
+    if(action){
+      const act=action.dataset.act;
+      commitEdit();
+      if(act==='add'){ tasks.push({id:newTaskId(),name:'新任务',desc:''}); saveTasks(); renderTasks(); }
+      else if(act==='del'){
+        const row=action.closest('.edit-row');
+        if(tasks.length<=1){ showToast('至少保留一项任务'); return; }
+        if(row){ tasks=tasks.filter(t=>t.id!==row.dataset.id); saveTasks(); renderTasks(); }
+      }
+      else if(act==='restore'){ showModal('恢复默认任务？','当前任务列表会被默认的六项替换，已有的打卡记录会保留。',()=>{ tasks=DEFAULT_TASKS.map(t=>({...t})); editing=false; $('editTasksBtn').textContent='编辑任务'; saveTasks(); renderToday(); showToast('已恢复默认任务'); }); }
+      else if(act==='done'){ saveTasks(); editing=false; $('editTasksBtn').textContent='编辑任务'; renderToday(); showToast('任务已保存'); }
+      return;
+    }
+    const btn=e.target.closest('.task');
+    if(btn) toggleTask(btn.dataset.id);
+  });
+  $('editTasksBtn').addEventListener('click',()=>{
+    if(editing){ commitEdit(); saveTasks(); editing=false; $('editTasksBtn').textContent='编辑任务'; renderToday(); showToast('任务已保存'); }
+    else { editing=true; $('editTasksBtn').textContent='保存并返回'; renderTasks(); }
+  });
+  document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===btn));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===btn.dataset.tab+'Panel'));
+  }));
+  $('dailyNote').addEventListener('input',()=>{saveNote();});
+  $('exportBtn').addEventListener('click',exportData);
+  $('backupBtn').addEventListener('click',exportData);
+  $('importBtn').addEventListener('click',()=>showModal('导入备份？','备份文件里同一天的记录会覆盖当前记录，其他日期会保留。',()=>$('importFile').click()));
+  $('importFile').addEventListener('change',e=>{if(e.target.files[0])importData(e.target.files[0]);e.target.value='';});
+  $('resetBtn').addEventListener('click',()=>showModal('重置今日打卡？','只会清空今天所有任务的完成状态，不会删除过去的记录和随手记。',()=>{
+    syncToday();ensureToday();records[today].done=[];saveRecords();renderToday();showToast('今日打卡已重置');
+  }));
+  $('cancelModal').addEventListener('click',closeModal);
+  $('confirmModal').addEventListener('click',()=>{const fn=modalAction;closeModal();if(fn)fn();});
+  $('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal();});
+  loadTasks();loadRecords();ensureToday();renderDate();renderToday();
+})();
+</script>
+</body>
+</html>
