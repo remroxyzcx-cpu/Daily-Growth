@@ -35,6 +35,24 @@ button,input,textarea,select{font:inherit}button{cursor:pointer;color:inherit}
   backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 34px rgba(0,0,0,.14)}
 
+/* CET-6 countdown */
+.cet-card{margin-bottom:20px;padding:16px 20px 15px;border-radius:22px;position:relative;overflow:hidden}
+.cet-card:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-90px;top:-150px;background:radial-gradient(circle,rgba(120,166,255,.18),transparent 70%);pointer-events:none}
+.cet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:relative}
+.cet-eyebrow{font-size:10px;letter-spacing:2px;color:#8fb4ff;font-weight:700}
+.cet-sub{font-size:11px;color:#a0a7b5;margin-top:5px}
+.cet-date{font-size:10px;color:#aeb6c5;letter-spacing:.6px;white-space:nowrap;padding-top:2px;font-variant-numeric:tabular-nums}
+.cet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;position:relative}
+.cet-unit{text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 6px 10px}
+.cet-num{font-size:clamp(26px,5vw,38px);font-weight:720;letter-spacing:-1px;line-height:1;font-variant-numeric:tabular-nums;color:#f6f8ff;text-shadow:0 0 20px rgba(120,166,255,.25)}
+.cet-num.tick{animation:cetTick .35s ease}
+@keyframes cetTick{0%{opacity:.5;transform:translateY(2px)}100%{opacity:1;transform:translateY(0)}}
+.cet-label{font-size:9px;letter-spacing:1px;color:#8f98aa;margin-top:7px}
+.cet-foot{text-align:center;font-size:10px;letter-spacing:1px;color:#7f899a;margin-top:12px;position:relative}
+.cet-status{display:none;text-align:center;font-size:12px;color:#aeb6c5;padding:18px 6px 6px;line-height:1.75;position:relative}
+.cet-status.show{display:block}
+.cet-card.is-status .cet-grid,.cet-card.is-status .cet-foot{display:none}
+
 /* topbar */
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .brand{display:flex;align-items:center;gap:11px}
@@ -261,8 +279,21 @@ select.f{appearance:none;cursor:pointer}
   .goal-fields{grid-template-columns:1fr}
   .edit-row{flex-wrap:wrap}.edit-row .e-name,.edit-row .e-desc{flex:1 1 100%}
   .row-item input.row-time{width:66px}
+  /* CET countdown — 手机端紧凑四格 */
+  .cet-card{margin-bottom:16px;padding:15px 15px 13px;border-radius:20px}
+  .cet-head{gap:8px}
+  .cet-eyebrow{font-size:9px;letter-spacing:1.6px}
+  .cet-sub{font-size:10px;margin-top:4px}
+  .cet-date{font-size:9px;letter-spacing:0;max-width:52%;text-align:right;white-space:normal;line-height:1.4}
+  .cet-grid{gap:6px;margin-top:12px}
+  .cet-unit{padding:10px 2px 8px;border-radius:12px}
+  .cet-num{font-size:clamp(23px,7vw,32px);letter-spacing:-.5px;text-shadow:0 0 14px rgba(120,166,255,.22)}
+  .cet-label{font-size:8px;letter-spacing:.2px;margin-top:6px}
+  .cet-foot{font-size:9px;letter-spacing:.6px;margin-top:10px}
+  .cet-status{font-size:11px;padding:14px 2px 4px}
 }
 @media(max-width:400px){.nav-item span{font-size:10px}.nav-item{padding:8px 9px}}
+@media(max-width:340px){.cet-num{font-size:21px}.cet-label{font-size:7px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}body:before,body:after{animation:none!important}}
 @media(prefers-reduced-transparency:reduce){.card,.glass,.overview,.task,.mainnav .nav-inner,.modal,.tabs{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background-color:#151922!important}}
 </style>
@@ -284,6 +315,24 @@ select.f{appearance:none;cursor:pointer}
       </button>
     </div>
   </header>
+
+  <section class="cet-card glass" id="cetCard" aria-label="英语六级考试倒计时">
+    <div class="cet-head">
+      <div>
+        <div class="cet-eyebrow">CET-6 COUNTDOWN</div>
+        <div class="cet-sub">距离英语六级考试</div>
+      </div>
+      <div class="cet-date" id="cetDateLabel">—</div>
+    </div>
+    <div class="cet-grid" id="cetGrid">
+      <div class="cet-unit"><div class="cet-num" id="cetDays">--</div><div class="cet-label">天 · DAYS</div></div>
+      <div class="cet-unit"><div class="cet-num" id="cetHours">--</div><div class="cet-label">时 · HRS</div></div>
+      <div class="cet-unit"><div class="cet-num" id="cetMinutes">--</div><div class="cet-label">分 · MIN</div></div>
+      <div class="cet-unit"><div class="cet-num" id="cetSeconds">--</div><div class="cet-label">秒 · SEC</div></div>
+    </div>
+    <div class="cet-status" id="cetStatus"></div>
+    <div class="cet-foot" id="cetFoot">Every second brings you closer.</div>
+  </section>
 
   <nav class="mainnav" aria-label="主导航">
     <div class="nav-inner" id="navInner">
@@ -541,6 +590,19 @@ select.f{appearance:none;cursor:pointer}
           <input type="file" id="setImportFile" accept="application/json,.json" hidden>
         </div>
         <p class="hint" style="margin:14px 0 0">导入兼容旧版备份（仅含每日成长数据），会自动保留原有记录与任务。</p>
+      </div>
+
+      <div class="section-head"><div class="section-title">CET-6 倒计时</div><div class="eyebrow">EXAM COUNTDOWN</div></div>
+      <div class="card glass">
+        <p class="hint" style="margin:0 0 14px">设置英语六级笔试的开始日期与时间，顶部倒计时会实时更新。默认采用 2026 年下半年官方笔试时间（12 月 12 日 15:00），来源：中国教育考试网。可按自己实际考试场次修改。</p>
+        <div class="field"><label for="cetDateInput">考试日期</label><input type="date" class="f" id="cetDateInput"></div>
+        <div class="field"><label for="cetTimeInput">开始时间</label><input type="time" class="f" id="cetTimeInput"></div>
+        <p class="hint" id="cetCurrentLabel" style="margin:2px 0 12px">当前设定：—</p>
+        <div class="tools" style="margin-top:0">
+          <button class="btn primary" id="cetSaveBtn">保存设置</button>
+          <button class="btn" id="cetResetBtn">重置为官方默认</button>
+        </div>
+        <p class="hint" style="margin:12px 0 0">考试时间到本地后会自动切换为"考试时间已到"状态，不会显示负数。设置仅保存在本机浏览器。</p>
       </div>
 
       <div class="section-head"><div class="section-title">默认任务</div><div class="eyebrow">TASKS</div></div>
@@ -1073,6 +1135,87 @@ $$('#hisType button').forEach(b=>b.addEventListener('click',()=>{$$('#hisType bu
 function hisRender(){ hisRenderDetail(); hisRenderChart(); }
 
 /* ============================================================
+   CET-6 倒计时（独立存储 Key，单一计时器，实时计算）
+   ============================================================ */
+const CET_KEY='cet6Settings_v1';
+const CET_DEFAULT={date:'2026-12-12',time:'15:00'}; // 2026 下半年官方笔试：12/12 15:00（中国教育考试网）
+let cetTimer=null;                                  // 全局唯一计时器句柄
+let cetLast={d:null,h:null,m:null,s:null};          // 上一秒数值，用于仅变化时才触发轻微动画
+
+function cetLoad(){
+  const s=loadJSON(CET_KEY,null);
+  if(s&&typeof s==='object'&&typeof s.date==='string'){
+    return {date:s.date,time:typeof s.time==='string'?s.time:CET_DEFAULT.time};
+  }
+  return {...CET_DEFAULT};
+}
+function cetSave(s){ saveJSON(CET_KEY,{date:s.date,time:s.time}); }
+function cetValidDate(s){
+  if(!s||typeof s.date!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(s.date)||!/^\d{2}:\d{2}$/.test(s.time||''))return null;
+  // 用本地时间构造，避免 UTC/时区偏差
+  const [y,m,d]=s.date.split('-').map(Number),[hh,mm]=s.time.split(':').map(Number);
+  const t=new Date(y,m-1,d,hh,mm,0);
+  return isNaN(t.getTime())?null:t;
+}
+function cetSetNum(el,val,key){
+  const str=String(val).padStart(2,'0');
+  if(cetLast[key]!==val){ el.textContent=str; el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); cetLast[key]=val; }
+}
+function cetSetStatus(msg){
+  const card=$('cetCard');
+  if(msg){ card.classList.add('is-status'); $('cetStatus').textContent=msg; $('cetStatus').classList.add('show'); }
+  else{ card.classList.remove('is-status'); $('cetStatus').classList.remove('show'); $('cetStatus').textContent=''; }
+}
+function cetRender(){
+  const s=cetLoad(),target=cetValidDate(s);
+  // 标签文字
+  const [y,m,d]=s.date.split('-');
+  $('cetDateLabel').textContent=(s.date&&s.date!=='')?`${y}.${m}.${d}  ${s.time||''}`:'日期未设置';
+  if(!target){
+    cetSetNum($('cetDays'),0,'d');cetSetNum($('cetHours'),0,'h');cetSetNum($('cetMinutes'),0,'m');cetSetNum($('cetSeconds'),0,'s');
+    cetSetStatus('尚未设置考试日期，请到「设置 → CET-6 倒计时」填写你的考试时间。'); return;
+  }
+  const diff=target.getTime()-Date.now();
+  if(diff<=0){
+    cetSetNum($('cetDays'),0,'d');cetSetNum($('cetHours'),0,'h');cetSetNum($('cetMinutes'),0,'m');cetSetNum($('cetSeconds'),0,'s');
+    cetSetStatus('考试时间已到。祝你考试顺利 ✦ 如果是新的考试周期，请到「设置 → CET-6 倒计时」更新下一次日期。'); return;
+  }
+  cetSetStatus('');
+  const totalSec=Math.floor(diff/1000);
+  cetSetNum($('cetDays'),Math.floor(totalSec/86400),'d');
+  cetSetNum($('cetHours'),Math.floor(totalSec%86400/3600),'h');
+  cetSetNum($('cetMinutes'),Math.floor(totalSec%3600/60),'m');
+  cetSetNum($('cetSeconds'),totalSec%60,'s');
+}
+function cetStartTimer(){
+  if(cetTimer){ clearInterval(cetTimer); cetTimer=null; }
+  cetRender();
+  cetTimer=setInterval(cetRender,1000);
+}
+function cetFillSettings(){
+  const s=cetLoad();
+  $('cetDateInput').value=s.date||'';
+  $('cetTimeInput').value=s.time||CET_DEFAULT.time;
+  const label=$('cetCurrentLabel');
+  label.textContent=(s.date&&s.date!=='')?`当前设定：${s.date} ${s.time||''}（本地时间）`:'当前设定：未设置';
+}
+// 页面重新可见 / 回到缓存时立即用当前时间重算，不依赖计时器累计
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden) cetRender(); });
+window.addEventListener('pageshow',cetRender);
+window.addEventListener('focus',cetRender);
+
+$('cetSaveBtn').addEventListener('click',()=>{
+  const date=$('cetDateInput').value,time=$('cetTimeInput').value;
+  if(!date||!time){ showToast('请填写完整的考试日期和时间'); return; }
+  const s={date,time};
+  if(!cetValidDate(s)){ showToast('日期或时间格式不正确'); return; }
+  cetSave(s); cetLast={d:null,h:null,m:null,s:null}; cetFillSettings(); cetRender(); showToast('考试时间已保存，倒计时已更新');
+});
+$('cetResetBtn').addEventListener('click',()=>showModal('重置为官方默认？','将考试时间恢复为 2026 年下半年官方笔试时间：12 月 12 日 15:00。',()=>{
+  cetSave({...CET_DEFAULT}); cetLast={d:null,h:null,m:null,s:null}; cetFillSettings(); cetRender(); showToast('已重置为官方默认考试时间');
+}));
+
+/* ============================================================
    模块六：设置 / 全量导入导出（兼容旧版）
    ============================================================ */
 const SETTINGS_KEY='zcxSettings_v1';
@@ -1082,7 +1225,7 @@ function exportData(){
     app:'ZCX. Personal Growth System',format:3,version:'3.0',exportedAt:new Date().toISOString(),
     tasks,records,
     dailyPlans_v1:dailyPlans,weeklyPlans_v1:weeklyPlans,weeklyReviews_v1:weeklyReviews,
-    settings_v1:loadJSON(SETTINGS_KEY,{})
+    settings_v1:loadJSON(SETTINGS_KEY,{}),cet6Settings_v1:cetLoad()
   };
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob),a=document.createElement('a');
@@ -1121,8 +1264,10 @@ function importData(file){
       const wr=parsed.weeklyReviews_v1||parsed.weeklyReviews;
       if(wr&&typeof wr==='object'){weeklyReviews={...weeklyReviews,...wr};saveJSON(WR_KEY,weeklyReviews);}
       if(parsed.settings_v1&&typeof parsed.settings_v1==='object'){saveJSON(SETTINGS_KEY,{...loadJSON(SETTINGS_KEY,{}),...parsed.settings_v1});}
+      const cs=parsed.cet6Settings_v1;
+      if(cs&&typeof cs==='object'&&typeof cs.date==='string'){ cetSave({date:cs.date,time:typeof cs.time==='string'?cs.time:CET_DEFAULT.time}); }
       ensureToday();saveRecords();
-      refreshAll(); showToast('导入成功，数据已合并');
+      refreshAll(); cetFillSettings(); cetLast={d:null,h:null,m:null,s:null}; cetRender(); showToast('导入成功，数据已合并');
     }catch(e){showToast('文件格式不正确，未能导入');}
   };
   reader.readAsText(file);
@@ -1151,12 +1296,15 @@ function switchModule(name){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 $$('.nav-item').forEach(b=>b.addEventListener('click',()=>switchModule(b.dataset.mod)));
-function refreshAll(){ renderToday();dpRender();wpRender();wrRender();hisRender(); }
+function refreshAll(){ renderToday();dpRender();wpRender();wrRender();hisRender(); cetFillSettings(); }
 
 // 初始化
 loadTasks();loadRecords();ensureToday();saveRecords();
 renderDate();
 refreshAll();
+if(!localStorage.getItem(CET_KEY)) cetSave({...CET_DEFAULT}); // 首次使用持久化默认考试时间
+cetFillSettings(); cetRender();
+cetStartTimer();   // 启动全局唯一倒计时计时器
 })();
 </script>
 </body>
