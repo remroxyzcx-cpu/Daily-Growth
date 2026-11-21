@@ -605,6 +605,16 @@ select.f{appearance:none;cursor:pointer}
         <p class="hint" style="margin:12px 0 0">考试时间到本地后会自动切换为"考试时间已到"状态，不会显示负数。设置仅保存在本机浏览器。</p>
       </div>
 
+      <div class="section-head"><div class="section-title">系统更新</div><div class="eyebrow">APP UPDATES</div></div>
+      <div class="card glass">
+        <p class="hint" style="margin:0 0 14px">添加到主屏幕的网页应用会缓存旧版本。这里会自动检测线上是否有新版；检测到后自动刷新，<b>打卡记录、计划和设置都不会丢失</b>，无需删除图标或重新导入数据。</p>
+        <div class="kv"><span>当前版本</span><b id="updCurrent">—</b></div>
+        <p class="hint" id="updTip" style="margin:6px 0 12px">每次打开应用时会自动检查更新。</p>
+        <div class="tools" style="margin-top:0">
+          <button class="btn primary" id="updCheckBtn">检查更新</button>
+        </div>
+      </div>
+
       <div class="section-head"><div class="section-title">默认任务</div><div class="eyebrow">TASKS</div></div>
       <div class="card glass">
         <p class="hint" style="margin:0 0 14px">恢复默认的六项成长任务（背单词、健身、英语六级专项、控制手机使用、阅读、AI 实践）。已有的打卡记录与历史完成率不会改变。</p>
@@ -613,7 +623,7 @@ select.f{appearance:none;cursor:pointer}
 
       <div class="section-head"><div class="section-title">关于</div><div class="eyebrow">ABOUT</div></div>
       <div class="card glass">
-        <div class="kv"><span>系统版本</span><b id="setVersion">v3.0 · Multi-Module</b></div>
+        <div class="kv"><span>系统版本</span><b id="setVersion">v3.1 · Multi-Module</b></div>
         <div class="kv"><span>品牌</span><b>ZCX. · ZHAO CHENXU PERSONAL EDITION</b></div>
         <div class="kv"><span>数据存储</span><b>浏览器本地存储（LocalStorage）</b></div>
         <p class="hint" style="margin:14px 0 0">一个专注于长期习惯追踪、每日计划、每周目标与复盘的个人成长系统。无需网络，无需账号，可部署在 GitHub Pages。</p>
@@ -646,6 +656,42 @@ select.f{appearance:none;cursor:pointer}
    ============================================================ */
 const $ = id => document.getElementById(id);
 const $$ = (sel,root) => { let r=root||document; if(typeof r==='string') r=document.querySelector(r); return Array.from((r||document).querySelectorAll(sel)); };
+
+/* ============================================================
+   主屏幕应用自动更新：版本探测 + 换址刷新（不依赖 Service Worker）
+   原理：主屏幕图标缓存旧 HTML -> 旧页里的 APP_BUILD 是旧值 ->
+   用唯一参数拉取线上最新 HTML 对比 -> 不同则带新版本号跳转，
+   新网址必然未缓存，从而加载最新版。LocalStorage 不受网址参数影响。
+   ============================================================ */
+const APP_BUILD='20261121.1';
+let updBusy=false;
+function appCheckUpdate(manual){
+  if(updBusy)return;
+  updBusy=true;
+  const tip=$('updTip');
+  const say=msg=>{ if(tip)tip.textContent=msg; if(manual&&typeof showToast==='function')showToast(msg); };
+  try{
+    if(!/^https?:$/.test(location.protocol)){ updBusy=false; say('本地文件预览无需检查更新'); return; }
+    const u=new URL(location.href);
+    // __probe 用时间戳，绕过 GitHub CDN 的 10 分钟缓存；no-store 避免读本地缓存
+    fetch(u.pathname+'?__probe='+Date.now(),{cache:'no-store'})
+      .then(r=>{ if(!r.ok)throw new Error('net'); return r.text(); })
+      .then(txt=>{
+        const m=txt.match(/const APP_BUILD='([^']+)'/);
+        const online=m&&m[1];
+        updBusy=false;
+        if(!online){ say('无法读取线上版本信息'); return; }
+        if(online===APP_BUILD){ say('已是最新版本 · '+APP_BUILD); return; }
+        if(typeof showToast==='function')showToast('发现新版本 '+online+'，正在更新…');
+        if(tip)tip.textContent='发现新版本 '+online+'，正在更新…';
+        const next=new URL(location.href);
+        next.searchParams.set('__b',online);
+        next.searchParams.set('__t',Date.now());
+        setTimeout(()=>{ location.replace(next.toString()); },400);
+      })
+      .catch(()=>{ updBusy=false; say('检查失败，请确认网络后重试'); });
+  }catch(e){ updBusy=false; say('检查失败，请重试'); }
+}
 const pad = n => String(n).padStart(2,'0');
 const localDateKey = (date) => { const d=date||new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
 const dateFromKey = key => { const [y,m,d]=key.split('-').map(Number); return new Date(y,m-1,d); };
@@ -1305,6 +1351,10 @@ refreshAll();
 if(!localStorage.getItem(CET_KEY)) cetSave({...CET_DEFAULT}); // 首次使用持久化默认考试时间
 cetFillSettings(); cetRender();
 cetStartTimer();   // 启动全局唯一倒计时计时器
+// 自动更新：启动时探测线上版本，命中新版本则自动刷新到最新版
+const updEl=$('updCurrent'); if(updEl)updEl.textContent='v3.1 · '+APP_BUILD;
+const updBtn=$('updCheckBtn'); if(updBtn)updBtn.addEventListener('click',()=>appCheckUpdate(true));
+setTimeout(()=>appCheckUpdate(false),600);
 })();
 </script>
 </body>
